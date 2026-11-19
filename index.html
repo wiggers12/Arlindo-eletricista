@@ -1,1503 +1,639 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Espaço Taai Botelho</title>
-    <meta name="theme-color" content="#b69245">
-
-    <style>
-        /* =========================================================
-           VARIÁVEIS DE DESIGN & RESET
-        ========================================================= */
-        :root {
-            --primary: #b69245;
-            --primary-dark: #8a6c2f;
-            --primary-light: #fffaf0;
-            --primary-border: #eadbb4;
-            --bg-body: #f5f5f7;
-            --bg-card: #ffffff;
-            --text-main: #222222;
-            --text-muted: #777777;
-            --border: #eeeeee;
-            --radius-main: 16px;
-            --radius-btn: 12px;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.4;
-        }
-
-        button, input, select, textarea {
-            font: inherit;
-        }
-
-        button {
-            cursor: pointer;
-            border: none;
-            outline: none;
-        }
-
-        /* =========================================================
-           LAYOUT & CONTAINER
-        ========================================================= */
-        .app {
-            max-width: 500px;
-            min-height: 100vh;
-            margin: 0 auto;
-            background: var(--bg-card);
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-        }
-
-        /* =========================================================
-           HEADER & STATUS
-        ========================================================= */
-        header {
-            text-align: center;
-            padding: 24px 20px 16px;
-            border-bottom: 1px solid var(--border);
-            background: var(--bg-card);
-        }
-
-        .logo {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            margin-bottom: 12px;
-            display: none;
-        }
-
-        header h1 {
-            font-size: 11px;
-            letter-spacing: 4px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        header h2 {
-            font-size: 28px;
-            margin-top: 2px;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        header p {
-            margin-top: 2px;
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        /* PAINEL DE DATA E RELÓGIO */
-        .datetime-card {
-            background: var(--primary-light);
-            border: 1px solid var(--primary-border);
-            border-radius: var(--radius-btn);
-            padding: 10px 14px;
-            margin-top: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .datetime-card .time-display {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--primary-dark);
-            font-variant-numeric: tabular-nums;
-        }
-
-        .datetime-card .date-display {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: capitalize;
-        }
-
-        .connection {
-            text-align: center;
-            padding: 6px 12px;
-            font-size: 11px;
-            background: #f9f9f9;
-            color: var(--text-muted);
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .connection.connected {
-            color: #2e7d32;
-            background: #e8f5e9;
-        }
-
-        .connection.error {
-            background: #ffebee;
-            color: #c62828;
-        }
-
-        /* =========================================================
-           CONTEÚDO PRINCIPAL & MENU
-        ========================================================= */
-        main {
-            padding: 20px;
-            flex: 1;
-        }
-
-        .welcome {
-            background: linear-gradient(135deg, #fffdf8 0%, #f8efd9 100%);
-            border: 1px solid var(--primary-border);
-            border-radius: var(--radius-main);
-            padding: 16px 20px;
-            margin-bottom: 20px;
-        }
-
-        .welcome h3 {
-            font-size: 18px;
-            margin-bottom: 2px;
-            color: var(--text-main);
-        }
-
-        .welcome p {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        /* MENU GRID 5 ITENS */
-        .menu {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .menu button {
-            min-height: 90px;
-            border: 1px solid var(--primary-border);
-            background: var(--bg-card);
-            border-radius: var(--radius-main);
-            padding: 12px 8px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-main);
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .menu button.full-width {
-            grid-column: span 2;
-            min-height: 70px;
-            flex-direction: row;
-            gap: 10px;
-        }
-
-        .menu button:active {
-            transform: scale(0.97);
-            background: var(--primary-light);
-        }
-
-        .menu-icon {
-            font-size: 24px;
-        }
-
-        /* =========================================================
-           SEÇÕES & ANIMAÇÃO
-        ========================================================= */
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-            animation: fadeIn 0.25s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(6px);
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Imperius Cred | Consultoria Financeira</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            imperius: {
+              navy: '#081526',
+              dark: '#050D18',
+              gold: '#D4AF37',
+              goldLight: '#F3D478',
+              goldDark: '#A6831E'
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+          },
+          fontFamily: {
+            display: ['Cinzel', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          }
         }
-
-        /* =========================================================
-           CARDS & FORMULÁRIOS
-        ========================================================= */
-        .card {
-            border: 1px solid var(--border);
-            border-radius: var(--radius-main);
-            padding: 20px;
-            margin-bottom: 16px;
-            background: var(--bg-card);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .card h3 {
-            color: var(--primary);
-            margin-bottom: 16px;
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        label {
-            display: block;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #555;
-            margin-bottom: 6px;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            border: 1px solid #ddd;
-            border-radius: var(--radius-btn);
-            padding: 12px 14px;
-            font-size: 14px;
-            margin-bottom: 16px;
-            background: #fff;
-            color: var(--text-main);
-            transition: border-color 0.2s ease;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-
-        textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        /* =========================================================
-           BOTÕES
-        ========================================================= */
-        .btn-primary {
-            width: 100%;
-            border-radius: var(--radius-btn);
-            padding: 14px;
-            background: var(--primary);
-            color: #fff;
-            font-weight: 700;
-            font-size: 15px;
-            transition: background 0.2s ease;
-        }
-
-        .btn-primary:active {
-            background: var(--primary-dark);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .btn-secondary {
-            width: 100%;
-            margin-top: 10px;
-            border: 1px solid var(--primary-border);
-            border-radius: var(--radius-btn);
-            padding: 12px;
-            background: #fff;
-            color: var(--primary-dark);
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        /* =========================================================
-           CARDS DE AGENDAMENTO (COM DESTAQUE DADOS CLIENTE)
-        ========================================================= */
-        .appointment {
-            border: 1px solid var(--primary-border);
-            border-radius: var(--radius-main);
-            padding: 16px;
-            margin-bottom: 14px;
-            background: #ffffff;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .appointment-hero {
-            background: var(--primary-light);
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 12px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .appointment-hero .hero-time {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--primary-dark);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .appointment-hero .hero-client {
-            font-size: 17px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-top: 4px;
-        }
-
-        .appointment-hero .hero-service {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--primary);
-            margin-top: 2px;
-        }
-
-        .appointment p {
-            margin-top: 4px;
-            font-size: 13px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .price {
-            font-size: 14px !important;
-            color: var(--primary-dark) !important;
-            font-weight: 700;
-        }
-
-        .whatsapp-link {
-            color: #25D366;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .status {
-            display: inline-block;
-            margin-top: 8px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .status-agendado { background: #fff5d9; color: #89680c; }
-        .status-confirmado { background: #eaf7ec; color: #23752b; }
-        .status-cancelado { background: #fff0f0; color: #a82e2e; }
-
-        .actions {
-            display: flex;
-            gap: 6px;
-            margin-top: 12px;
-        }
-
-        .actions button {
-            flex: 1;
-            border-radius: 8px;
-            padding: 8px 4px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .confirm-btn { background: #edf8ef; color: #25752c; }
-        .edit-btn { background: #f4f4f4; color: #555; }
-        .cancel-btn { background: #fff0f0; color: #ae3030; }
-
-        /* =========================================================
-           LISTA DE CLIENTES
-        ========================================================= */
-        .client-card {
-            border: 1px solid var(--border);
-            border-radius: var(--radius-main);
-            padding: 14px;
-            margin-bottom: 10px;
-            background: #fff;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .client-card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .client-card h4 {
-            font-size: 16px;
-            color: var(--text-main);
-            font-weight: 700;
-        }
-
-        .client-card p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        .client-actions {
-            display: flex;
-            gap: 6px;
-            margin-top: 10px;
-        }
-
-        .client-actions button {
-            flex: 1;
-            padding: 8px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .btn-schedule-quick {
-            background: var(--primary-light);
-            color: var(--primary-dark);
-            border: 1px solid var(--primary-border);
-        }
-
-        /* =========================================================
-           LISTA DE SERVIÇOS & GERENCIAR
-        ========================================================= */
-        .service-row {
-            border-bottom: 1px solid var(--border);
-            padding: 12px 0;
-        }
-
-        .service-row:last-child {
-            border-bottom: none;
-        }
-
-        .service-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .service-price {
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .service-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .service-actions button {
-            flex: 1;
-            border-radius: 8px;
-            padding: 8px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .delete-btn { background: #fff0f0; color: #aa3030; }
-
-        .manage-box {
-            border: 1px solid var(--border);
-            border-radius: var(--radius-main);
-            padding: 16px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .manage-box:active { background: var(--primary-light); }
-        .manage-box h4 { color: var(--primary); margin-bottom: 4px; }
-        .manage-box p { font-size: 12px; color: var(--text-muted); }
-
-        .selected-price {
-            background: var(--primary-light);
-            border-radius: var(--radius-btn);
-            padding: 10px;
-            margin-top: -8px;
-            margin-bottom: 14px;
-            color: var(--primary-dark);
-            font-size: 13px;
-            font-weight: 700;
-            display: none;
-        }
-
-        /* =========================================================
-           ESTADOS VAZIOS & TOAST
-        ========================================================= */
-        .empty, .loading {
-            text-align: center;
-            color: var(--text-muted);
-            padding: 30px 10px;
-            font-size: 14px;
-        }
-
-        #toast {
-            position: fixed;
-            left: 50%;
-            bottom: 24px;
-            transform: translateX(-50%) translateY(100px);
-            width: calc(100% - 40px);
-            max-width: 460px;
-            padding: 12px 16px;
-            border-radius: var(--radius-btn);
-            background: #222;
-            color: #fff;
-            text-align: center;
-            font-size: 13px;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        #toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        footer {
-            text-align: center;
-            color: #aaa;
-            font-size: 11px;
-            padding: 20px;
-        }
-    </style>
+      }
+    }
+  </script>
+  <style>
+    .gold-gradient {
+      background: linear-gradient(135deg, #F3D478 0%, #D4AF37 50%, #A6831E 100%);
+    }
+    .gold-text {
+      background: linear-gradient(135deg, #F3D478 0%, #D4AF37 60%, #B89024 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .fade-in {
+      animation: fadeIn 0.35s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
+<body class="bg-slate-50 text-slate-800 font-sans flex flex-col min-h-screen">
 
-<body>
+  <!-- Top Bar de Contato -->
+  <div class="bg-imperius-dark text-slate-300 text-xs py-2 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-4">
+        <span><i class="fa-solid fa-check text-imperius-gold mr-1"></i> Agilidade</span>
+        <span><i class="fa-solid fa-check text-imperius-gold mr-1"></i> Segurança</span>
+        <span class="hidden sm:inline"><i class="fa-solid fa-check text-imperius-gold mr-1"></i> As melhores condições</span>
+      </div>
+      <div class="flex items-center gap-4 font-medium">
+        <a href="tel:5137850149" class="hover:text-imperius-gold transition">
+          <i class="fa-solid fa-phone text-imperius-gold mr-1"></i> (51) 3785-0149
+        </a>
+        <a href="https://wa.me/5551984799152" target="_blank" class="text-emerald-400 hover:text-emerald-300 transition">
+          <i class="fa-brands fa-whatsapp mr-1"></i> (51) 98479-9152
+        </a>
+      </div>
+    </div>
+  </div>
 
-<div class="app">
-
-    <!-- HEADER -->
-    <header>
-        <img src="logo.png" class="logo" alt="Espaço Taai Botelho" onerror="this.style.display='none'">
-        <h1>Espaço</h1>
-        <h2>Taai Botelho</h2>
-        <p>Beleza • Cuidado • Bem-estar</p>
-
-        <!-- PAINEL DE RELÓGIO E DATA -->
-        <div class="datetime-card">
-            <span class="date-display" id="liveDate">Carregando data...</span>
-            <span class="time-display" id="liveClock">00:00:00</span>
+  <!-- Cabeçalho / Navegação -->
+  <header class="bg-imperius-navy text-white sticky top-0 z-50 shadow-lg border-b border-imperius-gold/30">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <button onclick="navigateTo('home')" class="flex items-center gap-3 text-left group">
+        <div class="w-11 h-11 rounded-xl gold-gradient flex items-center justify-center text-imperius-navy shadow-md group-hover:scale-105 transition">
+          <i class="fa-solid fa-crown text-xl"></i>
         </div>
-    </header>
+        <div>
+          <span class="font-display text-xl sm:text-2xl font-bold tracking-wider block leading-none text-white">
+            IMPERIUS <span class="text-imperius-gold">CRED</span>
+          </span>
+          <span class="text-[10px] tracking-[0.25em] text-slate-300 uppercase block mt-1">
+            Consultoria Financeira
+          </span>
+        </div>
+      </button>
 
-    <div id="connection" class="connection">Conectando ao banco...</div>
-
-    <!-- MAIN CONTAINER -->
-    <main>
-        <div class="welcome">
-            <h3>Olá ✨</h3>
-            <p>Gerencie horários, clientes e serviços de forma simples.</p>
+      <!-- Menu Desktop -->
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-medium">
+        <button onclick="navigateTo('home')" class="nav-link hover:text-imperius-gold transition" data-page="home">Início</button>
+        
+        <div class="relative group">
+          <button class="flex items-center gap-1 hover:text-imperius-gold transition py-2">
+            Soluções Financeiras <i class="fa-solid fa-chevron-down text-xs"></i>
+          </button>
+          <div class="absolute left-0 mt-0 w-72 bg-white text-slate-800 rounded-xl shadow-2xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+            <div id="desktop-dropdown" class="py-2 divide-y divide-slate-100"></div>
+          </div>
         </div>
 
-        <!-- MENU PRINCIPAL COM CLIENTES -->
-        <div class="menu">
-            <button onclick="newAppointment()">
-                <span class="menu-icon">📅</span>
-                Novo Agendamento
-            </button>
-            <button onclick="showSection('agenda')">
-                <span class="menu-icon">📋</span>
-                Agenda
-            </button>
-            <button onclick="showSection('clientes')">
-                <span class="menu-icon">👥</span>
-                Clientes
-            </button>
-            <button onclick="showSection('servicos')">
-                <span class="menu-icon">💇‍♀️</span>
-                Serviços
-            </button>
-            <button class="full-width" onclick="showSection('gerenciar')">
-                <span class="menu-icon">⚙️</span>
-                Gerenciar Configurações
-            </button>
+        <a href="https://wa.me/5551984799152?text=Olá!%20Gostaria%20de%20fazer%20uma%20simulação%20com%20a%20Imperius%20Cred." target="_blank"
+           class="gold-gradient text-imperius-navy font-bold px-5 py-2.5 rounded-lg shadow hover:brightness-105 transition">
+          Simular Agora
+        </a>
+      </nav>
+
+      <!-- Botão Mobile -->
+      <button onclick="toggleMobileMenu()" class="lg:hidden text-2xl text-imperius-gold p-2">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-imperius-dark border-t border-white/10 px-4 py-4 space-y-2">
+      <button onclick="navigateTo('home'); toggleMobileMenu()" class="block w-full text-left py-2 text-imperius-gold font-semibold">
+        Página Inicial
+      </button>
+      <div id="mobile-links" class="space-y-1 pl-2 border-l-2 border-imperius-gold/40"></div>
+    </div>
+  </header>
+
+  <!-- Barra de Navegação Rápida das Páginas (Para facilitar apresentação ao cliente) -->
+  <div class="bg-white border-b border-slate-200 shadow-sm overflow-x-auto">
+    <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center gap-2 text-xs whitespace-nowrap" id="quick-tabs">
+      <!-- Preenchido via JS -->
+    </div>
+  </div>
+
+  <!-- Conteúdo Dinâmico das Páginas -->
+  <main id="app-content" class="flex-grow"></main>
+
+  <!-- Seção Institucional & Contato -->
+  <section class="bg-imperius-navy text-white py-14 border-t-4 border-imperius-gold">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="bg-gradient-to-r from-imperius-dark to-slate-900 rounded-2xl p-8 md:p-10 border border-imperius-gold/30 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl">
+        <div>
+          <span class="inline-block px-3 py-1 rounded-full bg-imperius-gold/20 text-imperius-gold text-xs font-semibold mb-3">
+            Mais produtos, mais oportunidades!
+          </span>
+          <h2 class="text-2xl md:text-3xl font-bold mb-2">
+            Fale com a Imperius Cred e descubra a melhor solução para você!
+          </h2>
+          <p class="text-slate-300 text-sm md:text-base">
+            Atendimento personalizado com agilidade, transparência e as melhores taxas do mercado.
+          </p>
         </div>
-
-        <!-- INÍCIO (AGENDA DE HOJE) -->
-        <section id="inicio" class="section active">
-            <div class="card">
-                <h3>Agenda de hoje</h3>
-                <div id="todayAppointments">
-                    <div class="loading">Carregando agenda...</div>
-                </div>
+        <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto shrink-0">
+          <a href="tel:5137850149" class="flex items-center justify-center gap-3 bg-white text-imperius-navy font-bold px-6 py-4 rounded-xl hover:bg-slate-100 transition">
+            <i class="fa-solid fa-phone-volume text-xl text-imperius-goldDark"></i>
+            <div class="text-left">
+              <span class="block text-[10px] uppercase text-slate-500">Ligue Agora</span>
+              <span class="text-base">(51) 3785-0149</span>
             </div>
-        </section>
-
-        <!-- NOVO / EDITAR AGENDAMENTO -->
-        <section id="novo" class="section">
-            <div class="card">
-                <h3 id="appointmentTitle">Novo Agendamento</h3>
-                <input type="hidden" id="editAppointmentId">
-
-                <label for="clientName">Nome da cliente</label>
-                <input type="text" id="clientName" placeholder="Digite o nome completo" autocomplete="name">
-
-                <label for="clientPhone">WhatsApp</label>
-                <input type="tel" id="clientPhone" placeholder="(51) 99999-9999" inputmode="tel" oninput="applyPhoneMask(this)">
-
-                <label for="service">Serviço</label>
-                <select id="service" onchange="showSelectedServicePrice()">
-                    <option value="">Carregando...</option>
-                </select>
-
-                <div id="selectedServicePrice" class="selected-price"></div>
-
-                <label for="date">Data</label>
-                <input type="date" id="date">
-
-                <label for="time">Horário</label>
-                <input type="time" id="time">
-
-                <label for="notes">Observação</label>
-                <textarea id="notes" placeholder="Detalhes opcionais..."></textarea>
-
-                <button id="saveAppointmentButton" class="btn-primary" onclick="saveAppointment()">Salvar Agendamento</button>
-                <button class="btn-secondary" onclick="showSection('inicio')">Voltar</button>
+          </a>
+          <a href="https://wa.me/5551984799152" target="_blank" class="flex items-center justify-center gap-3 bg-emerald-600 text-white font-bold px-6 py-4 rounded-xl hover:bg-emerald-500 transition shadow-lg">
+            <i class="fa-brands fa-whatsapp text-2xl"></i>
+            <div class="text-left">
+              <span class="block text-[10px] uppercase text-emerald-100">WhatsApp Oficial</span>
+              <span class="text-base">(51) 98479-9152</span>
             </div>
-        </section>
+          </a>
+        </div>
+      </div>
 
-        <!-- AGENDA COMPLETA -->
-        <section id="agenda" class="section">
-            <div class="card">
-                <h3>Agenda</h3>
-                <label for="filterDate">Filtrar por data</label>
-                <input type="date" id="filterDate" onchange="renderAgenda()">
-                <div id="appointmentsList">
-                    <div class="loading">Carregando...</div>
-                </div>
-            </div>
-        </section>
+      <!-- 3 Pilares do Rodapé da Imagem -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/10 text-center md:text-left">
+        <div class="flex items-center justify-center md:justify-start gap-4">
+          <div class="w-12 h-12 rounded-full border border-imperius-gold/50 flex items-center justify-center text-imperius-gold shrink-0">
+            <i class="fa-solid fa-shield-check text-xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm tracking-wide uppercase text-imperius-goldLight">Seu sonho é o nosso foco</h4>
+            <p class="text-xs text-slate-400">Planejamento sob medida para seus objetivos.</p>
+          </div>
+        </div>
+        <div class="flex items-center justify-center md:justify-start gap-4">
+          <div class="w-12 h-12 rounded-full border border-imperius-gold/50 flex items-center justify-center text-imperius-gold shrink-0">
+            <i class="fa-solid fa-handshake text-xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm tracking-wide uppercase text-imperius-goldLight">Confiança em cada negociação</h4>
+            <p class="text-xs text-slate-400">Transparência total em todas as etapas.</p>
+          </div>
+        </div>
+        <div class="flex items-center justify-center md:justify-start gap-4">
+          <div class="w-12 h-12 rounded-full border border-imperius-gold/50 flex items-center justify-center text-imperius-gold shrink-0">
+            <i class="fa-solid fa-chart-line text-xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm tracking-wide uppercase text-imperius-goldLight">Juntos por seus objetivos</h4>
+            <p class="text-xs text-slate-400">Acompanhamento completo até a liberação.</p>
+          </div>
+        </div>
+      </div>
 
-        <!-- LISTA DE CLIENTES -->
-        <section id="clientes" class="section">
-            <div class="card">
-                <h3>Agenda de Clientes</h3>
-                <button class="btn-primary" onclick="openNewClient()" style="margin-bottom: 14px;">+ Cadastrar Cliente</button>
-                
-                <input type="text" id="searchClient" placeholder="🔍 Buscar cliente por nome ou fone..." oninput="renderClients()">
+      <div class="text-center text-xs text-slate-500 mt-10">
+        © 2026 Imperius Cred - Consultoria Financeira. Todos os direitos reservados.
+      </div>
+    </div>
+  </section>
 
-                <div id="clientsList">
-                    <div class="loading">Carregando clientes...</div>
-                </div>
-            </div>
-        </section>
+  <!-- Botão Flutuante WhatsApp -->
+  <a href="https://wa.me/5551984799152" target="_blank" title="Fale no WhatsApp"
+     class="fixed bottom-6 right-6 w-14 h-14 bg-emerald-500 text-white rounded-full shadow-2xl flex items-center justify-center text-3xl hover:scale-110 transition z-50">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
 
-        <!-- FORMULÁRIO CADASTRO/EDIÇÃO DE CLIENTE -->
-        <section id="formCliente" class="section">
-            <div class="card">
-                <h3 id="clientFormTitle">Novo Cliente</h3>
-                <input type="hidden" id="editClientId">
-
-                <label for="clientFormName">Nome Completo</label>
-                <input type="text" id="clientFormName" placeholder="Digite o nome da cliente">
-
-                <label for="clientFormPhone">WhatsApp / Telefone</label>
-                <input type="tel" id="clientFormPhone" placeholder="(51) 99999-9999" inputmode="tel" oninput="applyPhoneMask(this)">
-
-                <label for="clientFormNotes">Observações sobre a cliente</label>
-                <textarea id="clientFormNotes" placeholder="Ex: Preferências, alergias, tipo de cabelo..."></textarea>
-
-                <button id="saveClientButton" class="btn-primary" onclick="saveClient()">Salvar Cliente</button>
-                <button class="btn-secondary" onclick="showSection('clientes')">Cancelar</button>
-            </div>
-        </section>
-
-        <!-- LISTA DE SERVIÇOS (PÚBLICA) -->
-        <section id="servicos" class="section">
-            <div class="card">
-                <h3>Serviços Disponíveis</h3>
-                <div id="publicServices"></div>
-            </div>
-        </section>
-
-        <!-- PAINEL GERENCIAR -->
-        <section id="gerenciar" class="section">
-            <div class="card">
-                <h3>Gerenciar Configurações</h3>
-                <div class="manage-box" onclick="showSection('gerenciarServicos')">
-                    <h4>💇‍♀️ Serviços e Valores</h4>
-                    <p>Adicionar, alterar valores, duração ou excluir serviços.</p>
-                </div>
-                <div class="manage-box" onclick="showSection('clientes')">
-                    <h4>👥 Cadastro de Clientes</h4>
-                    <p>Gerenciar lista de contatos e informações das clientes.</p>
-                </div>
-                <div class="manage-box" onclick="showSection('agenda')">
-                    <h4>📅 Agendamentos</h4>
-                    <p>Editar clientes, serviços, datas e horários.</p>
-                </div>
-                <button class="btn-secondary" onclick="showSection('inicio')">Voltar ao início</button>
-            </div>
-        </section>
-
-        <!-- GERENCIAR SERVIÇOS -->
-        <section id="gerenciarServicos" class="section">
-            <div class="card">
-                <h3>Gerenciar Serviços</h3>
-                <button class="btn-primary" onclick="openNewService()">+ Adicionar Serviço</button>
-                <div id="manageServices" style="margin-top: 15px;"></div>
-                <button class="btn-secondary" onclick="showSection('gerenciar')">Voltar</button>
-            </div>
-        </section>
-
-        <!-- FORMULÁRIO DE SERVIÇO -->
-        <section id="formServico" class="section">
-            <div class="card">
-                <h3 id="serviceFormTitle">Novo Serviço</h3>
-                <input type="hidden" id="editServiceId">
-
-                <label for="serviceName">Nome do serviço</label>
-                <input type="text" id="serviceName" placeholder="Ex: Escova">
-
-                <label for="servicePrice">Valor (R$)</label>
-                <input type="number" id="servicePrice" placeholder="Ex: 50" min="0" step="0.01" inputmode="decimal">
-
-                <label for="serviceDuration">Duração em minutos</label>
-                <input type="number" id="serviceDuration" placeholder="Ex: 45" min="1" inputmode="numeric">
-
-                <button id="saveServiceButton" class="btn-primary" onclick="saveService()">Salvar Serviço</button>
-                <button class="btn-secondary" onclick="showSection('gerenciarServicos')">Cancelar</button>
-            </div>
-        </section>
-
-    </main>
-
-    <footer>
-        Espaço Taai Botelho • Sistema de Agendamentos
-    </footer>
-
-</div>
-
-<div id="toast"></div>
-
-<!-- =========================================================
-     MÓDULO FIREBASE & APLICAÇÃO
-========================================================= -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { 
-        getFirestore, collection, addDoc, getDocs, doc, setDoc, 
-        updateDoc, deleteDoc, onSnapshot, serverTimestamp 
-    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-    // Configuração do Firebase
-    const firebaseConfig = {
-        apiKey: "AIzaSyAbfoZCpgltNGqzC1SKtOXBJLIiABR1Uek",
-        authDomain: "tainan-salao.firebaseapp.com",
-        projectId: "tainan-salao",
-        storageBucket: "tainan-salao.firebasestorage.app",
-        messagingSenderId: "965996001179",
-        appId: "1:965996001179:web:e805a9e1087aaa9306533e",
-        measurementId: "G-E6EN58PXVB"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    let services = [];
-    let appointments = [];
-    let clients = [];
-
-    const defaultServices = [
-        { id: "corte", name: "Corte", price: 60, duration: 40 },
-        { id: "escova", name: "Escova", price: 50, duration: 45 },
-        { id: "coloracao", name: "Coloração", price: 150, duration: 120 },
-        { id: "manicure", name: "Manicure", price: 40, duration: 45 },
-        { id: "pedicure", name: "Pedicure", price: 45, duration: 50 },
-        { id: "sobrancelha", name: "Sobrancelha", price: 35, duration: 30 }
+  <!-- Lógica das Páginas e Dados dos 8 Serviços -->
+  <script>
+    const SERVICES = [
+      {
+        id: 'credito-clt',
+        title: 'Crédito CLT',
+        shortTitle: 'Crédito CLT',
+        subtitle: 'Empréstimo rápido e descomplicado para trabalhadores com carteira assinada.',
+        color: 'from-blue-900 to-slate-900',
+        badgeColor: 'bg-blue-900 text-white',
+        accent: 'text-blue-700',
+        icon: 'fa-id-card-clip',
+        image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=900&q=80',
+        description: 'Linha de crédito desenvolvida especialmente para profissionais registrados no regime CLT. Com análise ágil e parcelas que cabem no seu orçamento, você conquista o fôlego financeiro que precisa sem burocracia excessiva.',
+        highlights: [
+          'Aprovação ágil com análise simplificada',
+          'Parcelas fixas do início ao fim do contrato',
+          'Liberação rápida direto na sua conta',
+          'Sem necessidade de comprometer bens pessoais'
+        ],
+        targetAudience: 'Trabalhadores de empresas privadas com registro ativo em Carteira de Trabalho (CTPS).'
+      },
+      {
+        id: 'credito-consignado',
+        title: 'Crédito Consignado',
+        shortTitle: 'Consignado',
+        subtitle: 'As menores taxas do mercado com desconto direto em folha de pagamento.',
+        color: 'from-emerald-900 to-teal-950',
+        badgeColor: 'bg-emerald-800 text-white',
+        accent: 'text-emerald-700',
+        icon: 'fa-user-tie',
+        image: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=900&q=80',
+        description: 'O Crédito Consignado oferece prazos estendidos e taxas altamente competitivas. Atendemos um amplo portfólio de convênios públicos e previdenciários com total segurança.',
+        highlights: [
+          'Aposentados e Pensionistas do INSS',
+          'Servidores Públicos Estaduais (Governos) e Municipais (Prefeituras)',
+          'Forças Armadas: Aeronáutica, Marinha e Exército',
+          'Servidores Federais (SIAPE) e Previdências Privadas'
+        ],
+        targetAudience: 'Beneficiários do INSS, militares e servidores públicos federais, estaduais e municipais.'
+      },
+      {
+        id: 'cdc-energia',
+        title: 'CDC Energia',
+        shortTitle: 'CDC Energia',
+        subtitle: 'Empréstimo pessoal com cobrança prática direto na sua conta de luz.',
+        color: 'from-amber-600 to-orange-800',
+        badgeColor: 'bg-amber-600 text-white',
+        accent: 'text-amber-600',
+        icon: 'fa-bolt',
+        image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=900&q=80',
+        description: 'Precisa de dinheiro rápido e não possui margem consignável ou cartão de crédito? Com o CDC Energia, o valor das parcelas é incluído mensalmente na sua fatura de energia elétrica.',
+        highlights: [
+          'Dispensa comprovação tradicional de renda',
+          'Parcelamento acessível direto na fatura de energia',
+          'Processo 100% digital e desburocratizado',
+          'Liberação rápida após aprovação da concessionária'
+        ],
+        targetAudience: 'Titulares de conta de energia elétrica residencial que buscam crédito rápido e prático.'
+      },
+      {
+        id: 'fit-energia',
+        title: 'FIT Energia',
+        shortTitle: 'FIT Energia',
+        subtitle: 'Reduza seus gastos mensais com até 25% de desconto na conta de energia.',
+        color: 'from-cyan-700 to-emerald-800',
+        badgeColor: 'bg-cyan-700 text-white',
+        accent: 'text-cyan-700',
+        icon: 'fa-leaf',
+        image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=900&q=80',
+        description: 'Economize todos os meses na conta de luz sem precisar instalar painéis solares ou fazer obras no telhado. Através da geração compartilhada de energia limpa, você garante até 25% de economia.',
+        highlights: [
+          'Desconto garantido de até 25% na fatura mensal',
+          'Zero investimento inicial e zero custo de instalação',
+          'Energia limpa e sustentável',
+          'Adesão simples sem fidelidade abusiva'
+        ],
+        targetAudience: 'Residências, comércios e empresas que desejam reduzir custos fixos com energia elétrica.'
+      },
+      {
+        id: 'egv-garantia-veiculo',
+        title: 'EGV – Empréstimo com Garantia de Veículo',
+        shortTitle: 'Garantia de Veículo',
+        subtitle: 'Mais crédito e prazos maiores utilizando seu veículo como garantia.',
+        color: 'from-purple-900 to-indigo-950',
+        badgeColor: 'bg-purple-800 text-white',
+        accent: 'text-purple-700',
+        icon: 'fa-car-side',
+        image: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=900&q=80',
+        description: 'Use seu carro quitado como garantia para conseguir valores mais altos e juros muito menores que o empréstimo pessoal comum — e o melhor: você continua usando seu veículo normalmente.',
+        highlights: [
+          'Continue dirigindo seu veículo normalmente',
+          'Crédito de até 90% do valor da tabela FIPE',
+          'Taxas reduzidas e prazos de até 60 meses',
+          'Avaliação rápida e liberação ágil'
+        ],
+        targetAudience: 'Proprietários de veículos leves que precisam de capital de giro ou crédito pessoal barato.'
+      },
+      {
+        id: 'financiamento-veiculos',
+        title: 'Financiamento de Veículos',
+        shortTitle: 'Financ. Veículos',
+        subtitle: 'Para carros, motos e veículos pesados, novos ou usados.',
+        color: 'from-red-800 to-rose-950',
+        badgeColor: 'bg-red-700 text-white',
+        accent: 'text-red-700',
+        icon: 'fa-truck-fast',
+        image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80',
+        description: 'Realize a troca ou aquisição do seu próximo veículo com as melhores financeiras do país. Trabalhamos com linhas completas para passeio, motocicletas e frota pesada.',
+        highlights: [
+          'Carros de passeio e utilitários (novos e seminovos)',
+          'Motocicletas de baixa e alta cilindrada',
+          'Caminhões e veículos pesados para trabalho',
+          'Planos flexíveis com entrada facilitada'
+        ],
+        targetAudience: 'Pessoas físicas e empresas que desejam adquirir veículos novos ou usados.'
+      },
+      {
+        id: 'garantia-imovel',
+        title: 'Empréstimo com Garantia de Imóvel',
+        shortTitle: 'Garantia de Imóvel',
+        subtitle: 'Crédito inteligente com excelentes condições usando um imóvel como garantia.',
+        color: 'from-slate-800 to-blue-950',
+        badgeColor: 'bg-slate-800 text-white',
+        accent: 'text-slate-800',
+        icon: 'fa-house-lock',
+        image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80',
+        description: 'Transforme o patrimônio do seu imóvel em liquidez imediata para investir no seu negócio, quitar dívidas caras ou realizar grandes projetos, mantendo a posse e o uso do bem.',
+        highlights: [
+          'As menores taxas de juros do sistema financeiro',
+          'Prazos estendidos de até 240 meses para pagar',
+          'Valores elevados conforme avaliação do imóvel',
+          'Aceita imóveis residenciais e comerciais'
+        ],
+        targetAudience: 'Proprietários de imóveis que buscam crédito de alto valor com parcelas suaves.'
+      },
+      {
+        id: 'financiamento-imobiliario',
+        title: 'Financiamento Imobiliário',
+        shortTitle: 'Financ. Imobiliário',
+        subtitle: 'As melhores opções do mercado para conquistar seu imóvel próprio.',
+        color: 'from-fuchsia-900 to-purple-950',
+        badgeColor: 'bg-fuchsia-800 text-white',
+        accent: 'text-fuchsia-800',
+        icon: 'fa-building-user',
+        image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80',
+        description: 'Assessoria completa do início ao registro em cartório. Comparamos as condições dos principais bancos para garantir que você feche o financiamento imobiliário mais vantajoso.',
+        highlights: [
+          'Imóveis residenciais, comerciais e terrenos',
+          'Possibilidade de uso do FGTS na entrada ou amortização',
+          'Simulação comparativa entre os principais bancos',
+          'Acompanhamento jurídico e documental completo'
+        ],
+        targetAudience: 'Famílias e investidores que buscam adquirir imóveis novos ou usados.'
+      }
     ];
 
-    /* RELÓGIO E DATA */
-    function startClock() {
-        function update() {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString("pt-BR");
-            const dateStr = now.toLocaleDateString("pt-BR", {
-                weekday: "short",
-                day: "2-digit",
-                month: "short"
-            });
-            
-            document.getElementById("liveClock").textContent = timeStr;
-            document.getElementById("liveDate").textContent = dateStr;
-        }
-        update();
-        setInterval(update, 1000);
-    }
+    // Inicializa menus e barra rápida
+    function initNavigation() {
+      const dropdown = document.getElementById('desktop-dropdown');
+      const mobileLinks = document.getElementById('mobile-links');
+      const quickTabs = document.getElementById('quick-tabs');
 
-    async function ensureDefaultServices() {
-        try {
-            const snapshot = await getDocs(collection(db, "servicos"));
-            if (!snapshot.empty) return;
+      quickTabs.innerHTML = `
+        <span class="text-slate-400 font-semibold mr-1"><i class="fa-solid fa-layer-group"></i> Páginas:</span>
+        <button onclick="navigateTo('home')" data-tab="home" class="tab-btn px-3 py-1.5 rounded-full font-semibold transition">
+          Visão Geral
+        </button>
+      `;
 
-            for (const service of defaultServices) {
-                await setDoc(doc(db, "servicos", service.id), {
-                    name: service.name,
-                    price: service.price,
-                    duration: service.duration,
-                    createdAt: serverTimestamp()
-                });
-            }
-        } catch (error) {
-            showDatabaseError(error);
-        }
-    }
-
-    function listenServices() {
-        onSnapshot(collection(db, "servicos"), snapshot => {
-            services = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            services.sort((a, b) => String(a.name).localeCompare(String(b.name), "pt-BR"));
-
-            loadServiceSelect();
-            renderPublicServices();
-            renderManageServices();
-            setConnected();
-        }, error => showDatabaseError(error));
-    }
-
-    function listenAppointments() {
-        onSnapshot(collection(db, "agendamentos"), snapshot => {
-            appointments = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            renderToday();
-            renderAgenda();
-            setConnected();
-        }, error => showDatabaseError(error));
-    }
-
-    function listenClients() {
-        onSnapshot(collection(db, "clientes"), snapshot => {
-            clients = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            clients.sort((a, b) => String(a.name).localeCompare(String(b.name), "pt-BR"));
-            renderClients();
-            setConnected();
-        }, error => showDatabaseError(error));
-    }
-
-    function showSection(id) {
-        document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
-        const target = document.getElementById(id);
-        if (target) target.classList.add("active");
-
-        if (id === "inicio") renderToday();
-        if (id === "agenda") renderAgenda();
-        if (id === "clientes") renderClients();
-        if (id === "servicos") renderPublicServices();
-        if (id === "gerenciarServicos") renderManageServices();
-
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function loadServiceSelect() {
-        const select = document.getElementById("service");
-        const currentVal = select.value;
-        select.innerHTML = '<option value="">Selecione um serviço</option>';
-
-        services.forEach(s => {
-            const option = document.createElement("option");
-            option.value = s.id;
-            option.textContent = `${s.name} - ${formatMoney(s.price)}`;
-            select.appendChild(option);
-        });
-
-        if (services.some(s => s.id === currentVal)) {
-            select.value = currentVal;
-        }
-    }
-
-    function showSelectedServicePrice() {
-        const serviceId = document.getElementById("service").value;
-        const service = services.find(s => s.id === serviceId);
-        const box = document.getElementById("selectedServicePrice");
-
-        if (!service) {
-            box.style.display = "none";
-            return;
-        }
-
-        box.innerHTML = `${formatMoney(service.price)} • ${service.duration} minutos`;
-        box.style.display = "block";
-    }
-
-    function newAppointment(initialName = "", initialPhone = "") {
-        clearAppointmentForm();
-        document.getElementById("appointmentTitle").textContent = "Novo Agendamento";
-        
-        if (initialName) document.getElementById("clientName").value = initialName;
-        if (initialPhone) document.getElementById("clientPhone").value = initialPhone;
-
-        showSection("novo");
-    }
-
-    async function saveAppointment() {
-        const btn = document.getElementById("saveAppointmentButton");
-        const editId = document.getElementById("editAppointmentId").value;
-        const name = document.getElementById("clientName").value.trim();
-        const phone = document.getElementById("clientPhone").value.trim();
-        const serviceId = document.getElementById("service").value;
-        const date = document.getElementById("date").value;
-        const time = document.getElementById("time").value;
-        const notes = document.getElementById("notes").value.trim();
-
-        if (!name || !phone || !serviceId || !date || !time) {
-            showToast("Preencha todos os campos obrigatórios.");
-            return;
-        }
-
-        const service = services.find(s => s.id === serviceId);
-        if (!service) {
-            showToast("Serviço selecionado é inválido.");
-            return;
-        }
-
-        const conflict = appointments.some(a => 
-            a.date === date && 
-            a.time === time && 
-            a.status !== "Cancelado" && 
-            a.id !== editId
-        );
-
-        if (conflict) {
-            showToast("Esse horário já está ocupado.");
-            return;
-        }
-
-        btn.disabled = true;
-        btn.textContent = "Salvando...";
-
-        const payload = {
-            name, phone, serviceId,
-            serviceName: service.name,
-            price: Number(service.price),
-            duration: Number(service.duration),
-            date, time, notes,
-            updatedAt: serverTimestamp()
-        };
-
-        try {
-            if (editId) {
-                await updateDoc(doc(db, "agendamentos", editId), payload);
-                showToast("Agendamento atualizado!");
-            } else {
-                await addDoc(collection(db, "agendamentos"), {
-                    ...payload,
-                    status: "Agendado",
-                    createdAt: serverTimestamp()
-                });
-                showToast("Agendamento realizado!");
-            }
-
-            // Auto cadastra cliente se não existir
-            autoSaveClient(name, phone);
-
-            clearAppointmentForm();
-            showSection("agenda");
-        } catch (error) {
-            showDatabaseError(error);
-        } finally {
-            btn.disabled = false;
-            btn.textContent = "Salvar Agendamento";
-        }
-    }
-
-    async function autoSaveClient(name, phone) {
-        const cleanP = phone.replace(/\D/g, "");
-        const exists = clients.some(c => (c.phone || "").replace(/\D/g, "") === cleanP);
-        if (!exists && name && phone) {
-            try {
-                await addDoc(collection(db, "clientes"), {
-                    name, phone, notes: "Cadastrado via Agendamento",
-                    createdAt: serverTimestamp()
-                });
-            } catch (e) {
-                console.error("Erro no auto-cadastro de cliente:", e);
-            }
-        }
-    }
-
-    function editAppointment(id) {
-        const item = appointments.find(a => a.id === id);
-        if (!item) return showToast("Agendamento não encontrado.");
-
-        document.getElementById("editAppointmentId").value = item.id;
-        document.getElementById("clientName").value = item.name || "";
-        document.getElementById("clientPhone").value = item.phone || "";
-        document.getElementById("service").value = item.serviceId || "";
-        document.getElementById("date").value = item.date || "";
-        document.getElementById("time").value = item.time || "";
-        document.getElementById("notes").value = item.notes || "";
-        document.getElementById("appointmentTitle").textContent = "Editar Agendamento";
-
-        showSelectedServicePrice();
-        showSection("novo");
-    }
-
-    function clearAppointmentForm() {
-        ["editAppointmentId", "clientName", "clientPhone", "service", "date", "time", "notes"].forEach(id => {
-            document.getElementById(id).value = "";
-        });
-        const box = document.getElementById("selectedServicePrice");
-        box.innerHTML = "";
-        box.style.display = "none";
-    }
-
-    async function confirmAppointment(id) {
-        try {
-            await updateDoc(doc(db, "agendamentos", id), {
-                status: "Confirmado",
-                updatedAt: serverTimestamp()
-            });
-            showToast("Agendamento confirmado!");
-        } catch (error) {
-            showDatabaseError(error);
-        }
-    }
-
-    async function cancelAppointment(id) {
-        if (!confirm("Deseja realmente cancelar este agendamento?")) return;
-
-        try {
-            await updateDoc(doc(db, "agendamentos", id), {
-                status: "Cancelado",
-                updatedAt: serverTimestamp()
-            });
-            showToast("Agendamento cancelado.");
-        } catch (error) {
-            showDatabaseError(error);
-        }
-    }
-
-    function renderAgenda() {
-        const container = document.getElementById("appointmentsList");
-        const filter = document.getElementById("filterDate").value;
-
-        let list = [...appointments];
-        if (filter) list = list.filter(a => a.date === filter);
-
-        list.sort((a, b) => `${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`));
-
-        if (!list.length) {
-            container.innerHTML = '<div class="empty">📅<br><br>Nenhum agendamento encontrado.</div>';
-            return;
-        }
-
-        container.innerHTML = list.map(a => createAppointmentHTML(a, true)).join("");
-    }
-
-    function renderToday() {
-        const container = document.getElementById("todayAppointments");
-        const today = getTodayString();
-
-        const list = appointments
-            .filter(a => a.date === today && a.status !== "Cancelado")
-            .sort((a, b) => String(a.time).localeCompare(String(b.time)));
-
-        if (!list.length) {
-            container.innerHTML = '<div class="empty">✨<br><br>Nenhum horário marcado para hoje.</div>';
-            return;
-        }
-
-        container.innerHTML = list.map(a => createAppointmentHTML(a, false)).join("");
-    }
-
-    /* CARD DE AGENDAMENTO COM DESTAQUE DADOS CLIENTE + SERVIÇO + HORÁRIO */
-    function createAppointmentHTML(item, showActions) {
-        const status = item.status || "Agendado";
-        const statusClass = status === "Confirmado" ? "status-confirmado" :
-                            status === "Cancelado" ? "status-cancelado" : "status-agendado";
-        
-        const cleanPhone = (item.phone || "").replace(/\D/g, "");
-        const waLink = cleanPhone ? `https://wa.me/55${cleanPhone}` : null;
-
-        return `
-            <div class="appointment">
-                <!-- HERO BOX DE DESTAQUE: HORÁRIO, NOME E SERVIÇO -->
-                <div class="appointment-hero">
-                    <div class="hero-time">⏰ ${escapeHTML(item.time)}</div>
-                    <div class="hero-client">👤 ${escapeHTML(item.name)}</div>
-                    <div class="hero-service">💇‍♀️ ${escapeHTML(item.serviceName)}</div>
-                </div>
-
-                <p class="price">💰 ${formatMoney(item.price)}</p>
-                <p>📅 Data: ${formatDate(item.date)}</p>
-                <p>
-                    📱 ${escapeHTML(item.phone)} 
-                    ${waLink ? `<a href="${waLink}" target="_blank" class="whatsapp-link">(WhatsApp)</a>` : ''}
-                </p>
-                ${item.notes ? `<p>📝 Obs: ${escapeHTML(item.notes)}</p>` : ''}
-                
-                <span class="status ${statusClass}">${escapeHTML(status)}</span>
-
-                ${showActions ? `
-                    <div class="actions">
-                        ${status !== "Confirmado" && status !== "Cancelado" ? `
-                            <button class="confirm-btn" onclick="confirmAppointment('${item.id}')">Confirmar</button>
-                        ` : ''}
-                        <button class="edit-btn" onclick="editAppointment('${item.id}')">Editar</button>
-                        ${status !== "Cancelado" ? `
-                            <button class="cancel-btn" onclick="cancelAppointment('${item.id}')">Cancelar</button>
-                        ` : ''}
-                    </div>
-                ` : ''}
+      SERVICES.forEach(s => {
+        dropdown.innerHTML += `
+          <button onclick="navigateTo('${s.id}')" class="w-full text-left px-4 py-3 hover:bg-slate-50 flex items-center gap-3 transition">
+            <span class="w-8 h-8 rounded-lg ${s.badgeColor} flex items-center justify-center text-xs shrink-0">
+              <i class="fa-solid ${s.icon}"></i>
+            </span>
+            <div>
+              <span class="block font-semibold text-sm text-slate-800">${s.shortTitle}</span>
+              <span class="block text-[11px] text-slate-500 truncate max-w-[190px]">${s.subtitle}</span>
             </div>
+          </button>
         `;
+
+        mobileLinks.innerHTML += `
+          <button onclick="navigateTo('${s.id}'); toggleMobileMenu()" class="block w-full text-left py-1.5 text-sm text-slate-300 hover:text-imperius-gold">
+            ${s.shortTitle}
+          </button>
+        `;
+
+        quickTabs.innerHTML += `
+          <button onclick="navigateTo('${s.id}')" data-tab="${s.id}" class="tab-btn px-3 py-1.5 rounded-full font-medium transition">
+            ${s.shortTitle}
+          </button>
+        `;
+      });
     }
 
-    /* =========================================================
-       GERENCIAMENTO DE CLIENTES
-    ========================================================= */
-    function renderClients() {
-        const container = document.getElementById("clientsList");
-        const query = (document.getElementById("searchClient").value || "").toLowerCase().trim();
-
-        let list = [...clients];
-        if (query) {
-            list = list.filter(c => 
-                (c.name || "").toLowerCase().includes(query) || 
-                (c.phone || "").includes(query)
-            );
-        }
-
-        if (!list.length) {
-            container.innerHTML = '<div class="empty">Nenhum cliente encontrado.</div>';
-            return;
-        }
-
-        container.innerHTML = list.map(c => {
-            const cleanPhone = (c.phone || "").replace(/\D/g, "");
-            const waLink = cleanPhone ? `https://wa.me/55${cleanPhone}` : null;
-
-            return `
-                <div class="client-card">
-                    <div class="client-card-top">
-                        <div>
-                            <h4>${escapeHTML(c.name)}</h4>
-                            <p>📱 ${escapeHTML(c.phone)} ${waLink ? `<a href="${waLink}" target="_blank" class="whatsapp-link">(WhatsApp)</a>` : ''}</p>
-                            ${c.notes ? `<p style="font-size:12px; color:#666;">📝 ${escapeHTML(c.notes)}</p>` : ''}
-                        </div>
-                    </div>
-                    <div class="client-actions">
-                        <button class="btn-schedule-quick" onclick="newAppointment('${escapeHTML(c.name)}', '${escapeHTML(c.phone)}')">📅 Agendar</button>
-                        <button class="edit-btn" onclick="editClient('${c.id}')">Editar</button>
-                        <button class="delete-btn" onclick="deleteClient('${c.id}')">Excluir</button>
-                    </div>
-                </div>
-            `;
-        }).join("");
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
     }
 
-    function openNewClient() {
-        document.getElementById("editClientId").value = "";
-        document.getElementById("clientFormName").value = "";
-        document.getElementById("clientFormPhone").value = "";
-        document.getElementById("clientFormNotes").value = "";
-        document.getElementById("clientFormTitle").textContent = "Novo Cliente";
-        showSection("formCliente");
-    }
-
-    function editClient(id) {
-        const c = clients.find(item => item.id === id);
-        if (!c) return showToast("Cliente não encontrado.");
-
-        document.getElementById("editClientId").value = c.id;
-        document.getElementById("clientFormName").value = c.name || "";
-        document.getElementById("clientFormPhone").value = c.phone || "";
-        document.getElementById("clientFormNotes").value = c.notes || "";
-        document.getElementById("clientFormTitle").textContent = "Editar Cliente";
-        showSection("formCliente");
-    }
-
-    async function saveClient() {
-        const btn = document.getElementById("saveClientButton");
-        const editId = document.getElementById("editClientId").value;
-        const name = document.getElementById("clientFormName").value.trim();
-        const phone = document.getElementById("clientFormPhone").value.trim();
-        const notes = document.getElementById("clientFormNotes").value.trim();
-
-        if (!name || !phone) {
-            showToast("Preencha o nome e o telefone do cliente.");
-            return;
-        }
-
-        btn.disabled = true;
-        btn.textContent = "Salvando...";
-
-        try {
-            if (editId) {
-                await updateDoc(doc(db, "clientes", editId), {
-                    name, phone, notes,
-                    updatedAt: serverTimestamp()
-                });
-                showToast("Cliente atualizado!");
-            } else {
-                await addDoc(collection(db, "clientes"), {
-                    name, phone, notes,
-                    createdAt: serverTimestamp()
-                });
-                showToast("Cliente cadastrado com sucesso!");
-            }
-            showSection("clientes");
-        } catch (error) {
-            showDatabaseError(error);
-        } finally {
-            btn.disabled = false;
-            btn.textContent = "Salvar Cliente";
-        }
-    }
-
-    async function deleteClient(id) {
-        const c = clients.find(item => item.id === id);
-        if (!c || !confirm(`Deseja realmente excluir a cliente "${c.name}"?`)) return;
-
-        try {
-            await deleteDoc(doc(db, "clientes", id));
-            showToast("Cliente excluído.");
-        } catch (error) {
-            showDatabaseError(error);
-        }
-    }
-
-    /* SERVIÇOS */
-    function renderPublicServices() {
-        const container = document.getElementById("publicServices");
-        if (!services.length) {
-            container.innerHTML = '<div class="empty">Nenhum serviço cadastrado.</div>';
-            return;
-        }
-
-        container.innerHTML = services.map(s => `
-            <div class="service-row">
-                <div class="service-info">
-                    <div>
-                        <strong>${escapeHTML(s.name)}</strong><br>
-                        <small style="color:var(--text-muted)">${Number(s.duration)} minutos</small>
-                    </div>
-                    <strong class="service-price">${formatMoney(s.price)}</strong>
-                </div>
+    // Renderiza a Página Inicial (Home)
+    function renderHome() {
+      return `
+        <div class="fade-in">
+          <!-- Hero Banner -->
+          <section class="bg-imperius-navy text-white relative overflow-hidden py-16 md:py-24">
+            <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px]"></div>
+            <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
+              <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-imperius-gold/40 text-imperius-goldLight text-xs font-semibold mb-6">
+                <i class="fa-solid fa-crown"></i> CONSULTORIA FINANCEIRA ESPECIALIZADA
+              </div>
+              <h1 class="font-display text-3xl sm:text-5xl md:text-6xl font-bold tracking-wide mb-4">
+                Seu futuro financeiro <span class="gold-text block sm:inline">em boas mãos!</span>
+              </h1>
+              <p class="text-slate-300 max-w-2xl mx-auto text-base md:text-lg mb-8">
+                Soluções completas de crédito, financiamento e economia de energia com agilidade, segurança e as melhores condições do mercado.
+              </p>
+              <div class="flex flex-wrap justify-center gap-4">
+                <a href="#solucoes" class="gold-gradient text-imperius-navy font-bold px-8 py-4 rounded-xl shadow-lg hover:brightness-105 transition">
+                  Conhecer Nossas Soluções
+                </a>
+                <a href="https://wa.me/5551984799152" target="_blank" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold px-8 py-4 rounded-xl transition flex items-center gap-2">
+                  <i class="fa-brands fa-whatsapp text-emerald-400 text-xl"></i> Falar com Consultor
+                </a>
+              </div>
             </div>
-        `).join("");
-    }
+          </section>
 
-    function renderManageServices() {
-        const container = document.getElementById("manageServices");
-        if (!services.length) {
-            container.innerHTML = '<div class="empty">Nenhum serviço cadastrado.</div>';
-            return;
-        }
-
-        container.innerHTML = services.map(s => `
-            <div class="service-row">
-                <div class="service-info">
-                    <div>
-                        <strong>${escapeHTML(s.name)}</strong><br>
-                        <small style="color:var(--text-muted)">${Number(s.duration)} min</small>
-                    </div>
-                    <strong class="service-price">${formatMoney(s.price)}</strong>
-                </div>
-                <div class="service-actions">
-                    <button class="edit-btn" onclick="editService('${s.id}')">Editar</button>
-                    <button class="delete-btn" onclick="deleteService('${s.id}')">Excluir</button>
-                </div>
+          <!-- Grade dos 8 Serviços (Cada card leva para sua respectiva página) -->
+          <section id="solucoes" class="max-w-7xl mx-auto px-4 py-16">
+            <div class="text-center mb-12">
+              <span class="inline-block px-4 py-1 rounded-full gold-gradient text-imperius-navy font-bold text-xs uppercase tracking-wider mb-3">
+                Portfólio Completo
+              </span>
+              <h2 class="text-2xl md:text-4xl font-bold text-imperius-navy">
+                Soluções Financeiras Disponíveis na Imperius Cred
+              </h2>
+              <p class="text-slate-500 mt-2 text-sm md:text-base">
+                Clique em qualquer modalidade abaixo para acessar a página exclusiva do produto e simular.
+              </p>
             </div>
-        `).join("");
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              ${SERVICES.map(service => `
+                <div onclick="navigateTo('${service.id}')"
+                     class="group bg-white rounded-2xl shadow-md hover:shadow-2xl border border-slate-200/80 overflow-hidden cursor-pointer transition-all duration-300 flex flex-col hover:-translate-y-1">
+                  <div class="h-40 relative overflow-hidden">
+                    <img src="${service.image}" alt="${service.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                    <div class="absolute inset-0 bg-gradient-to-t ${service.color} opacity-80"></div>
+                    <div class="absolute top-4 left-4 w-11 h-11 rounded-xl bg-white/95 ${service.accent} flex items-center justify-center text-lg shadow">
+                      <i class="fa-solid ${service.icon}"></i>
+                    </div>
+                    <h3 class="absolute bottom-3 left-4 right-4 text-white font-bold text-lg leading-snug">
+                      ${service.title}
+                    </h3>
+                  </div>
+                  <div class="p-5 flex-grow flex flex-col justify-between">
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                      ${service.subtitle}
+                    </p>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold ${service.accent}">
+                      <span>Acessar Página do Serviço</span>
+                      <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </section>
+        </div>
+      `;
     }
 
-    function openNewService() {
-        document.getElementById("editServiceId").value = "";
-        document.getElementById("serviceName").value = "";
-        document.getElementById("servicePrice").value = "";
-        document.getElementById("serviceDuration").value = "";
-        document.getElementById("serviceFormTitle").textContent = "Novo Serviço";
-        showSection("formServico");
+    // Renderiza a Página Individual de cada Serviço
+    function renderServicePage(service) {
+      const whatsappMsg = encodeURIComponent(`Olá! Vim pelo site da Imperius Cred e gostaria de uma simulação de *${service.title}*.`);
+      
+      return `
+        <div class="fade-in">
+          <!-- Cabeçalho da Página do Produto -->
+          <section class="bg-gradient-to-r ${service.color} text-white py-14 md:py-20 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 relative z-10">
+              <button onclick="navigateTo('home')" class="inline-flex items-center gap-2 text-xs font-semibold text-white/80 hover:text-white mb-6 bg-white/10 px-3 py-1.5 rounded-lg transition">
+                <i class="fa-solid fa-arrow-left"></i> Voltar para Todas as Soluções
+              </button>
+              
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7">
+                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold mb-4">
+                    <i class="fa-solid ${service.icon}"></i> Solução Exclusiva Imperius Cred
+                  </div>
+                  <h1 class="text-3xl md:text-5xl font-bold mb-4 leading-tight">
+                    ${service.title}
+                  </h1>
+                  <p class="text-lg text-white/90 mb-8 max-w-2xl">
+                    ${service.subtitle}
+                  </p>
+                  <div class="flex flex-wrap gap-4">
+                    <a href="https://wa.me/5551984799152?text=${whatsappMsg}" target="_blank"
+                       class="gold-gradient text-imperius-navy font-bold px-7 py-4 rounded-xl shadow-lg hover:brightness-105 transition flex items-center gap-2">
+                      <i class="fa-brands fa-whatsapp text-xl"></i> Solicitar Cotação Agora
+                    </a>
+                  </div>
+                </div>
+                <div class="lg:col-span-5">
+                  <div class="rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20">
+                    <img src="${service.image}" alt="${service.title}" class="w-full h-64 md:h-72 object-cover" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Conteúdo Detalhado + Simulador Interativo -->
+          <section class="max-w-7xl mx-auto px-4 py-14">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+              
+              <!-- Coluna Esquerda: Detalhes e Benefícios -->
+              <div class="lg:col-span-7 space-y-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                  <h2 class="text-2xl font-bold text-imperius-navy mb-4">Como funciona o ${service.title}?</h2>
+                  <p class="text-slate-600 leading-relaxed mb-6">
+                    ${service.description}
+                  </p>
+                  
+                  <h3 class="font-bold text-lg text-imperius-navy mb-4">Principais Vantagens e Coberturas:</h3>
+                  <ul class="space-y-3">
+                    ${service.highlights.map(item => `
+                      <li class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full ${service.badgeColor} flex items-center justify-center text-xs shrink-0 mt-0.5">
+                          <i class="fa-solid fa-check"></i>
+                        </span>
+                        <span class="text-slate-700 font-medium">${item}</span>
+                      </li>
+                    `).join('')}
+                  </ul>
+
+                  <div class="mt-8 p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <span class="block text-xs font-bold uppercase text-slate-400 mb-1">Público Indicado</span>
+                    <p class="text-sm text-slate-700 font-medium">${service.targetAudience}</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Coluna Direita: Formulário de Simulação Rápida -->
+              <div class="lg:col-span-5">
+                <div class="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-imperius-gold sticky top-28">
+                  <h3 class="text-xl font-bold text-imperius-navy mb-1">Simulação Rápida</h3>
+                  <p class="text-xs text-slate-500 mb-6">Preencha os dados abaixo para enviar direto ao nosso especialista no WhatsApp.</p>
+                  
+                  <form onsubmit="sendSimulation(event, '${service.title}')" class="space-y-4">
+                    <div>
+                      <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Seu Nome Completo</label>
+                      <input type="text" id="sim-name" required placeholder="Ex: João da Silva"
+                             class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-imperius-gold focus:outline-none text-sm" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold text-slate-700 uppercase mb-1">WhatsApp para Contato</label>
+                      <input type="tel" id="sim-phone" required placeholder="(51) 99999-9999"
+                             class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-imperius-gold focus:outline-none text-sm" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold text-slate-700 uppercase mb-1">
+                        ${service.id === 'fit-energia' ? 'Valor Médio da Conta de Luz (R$)' : 'Valor Desejado (R$)'}
+                      </label>
+                      <input type="text" id="sim-value" required placeholder="Ex: R$ 15.000,00"
+                             class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-imperius-gold focus:outline-none text-sm" />
+                    </div>
+                    <button type="submit"
+                            class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                      <i class="fa-brands fa-whatsapp text-xl"></i> Enviar Simulação no WhatsApp
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+          </section>
+        </div>
+      `;
     }
 
-    function editService(id) {
-        const s = services.find(item => item.id === id);
-        if (!s) return showToast("Serviço não encontrado.");
+    // Envia dados do formulário direto para o WhatsApp da Imperius Cred
+    function sendSimulation(e, serviceTitle) {
+      e.preventDefault();
+      const name = document.getElementById('sim-name').value;
+      const phone = document.getElementById('sim-phone').value;
+      const value = document.getElementById('sim-value').value;
 
-        document.getElementById("editServiceId").value = s.id;
-        document.getElementById("serviceName").value = s.name || "";
-        document.getElementById("servicePrice").value = s.price || "";
-        document.getElementById("serviceDuration").value = s.duration || "";
-        document.getElementById("serviceFormTitle").textContent = "Editar Serviço";
-        showSection("formServico");
+      const text = `Olá, Imperius Cred! Gostaria de solicitar uma análise:\n\n` +
+                   `*Modalidade:* ${serviceTitle}\n` +
+                   `*Nome:* ${name}\n` +
+                   `*Telefone:* ${phone}\n` +
+                   `*Valor estimado:* ${value}`;
+
+      window.open(`https://wa.me/5551984799152?text=${encodeURIComponent(text)}`, '_blank');
     }
 
-    async function saveService() {
-        const btn = document.getElementById("saveServiceButton");
-        const editId = document.getElementById("editServiceId").value;
-        const name = document.getElementById("serviceName").value.trim();
-        const price = Number(document.getElementById("servicePrice").value);
-        const duration = Number(document.getElementById("serviceDuration").value);
+    // Controlador de Navegação (SPA)
+    function navigateTo(pageId) {
+      const container = document.getElementById('app-content');
+      
+      if (pageId === 'home') {
+        container.innerHTML = renderHome();
+      } else {
+        const service = SERVICES.find(s => s.id === pageId);
+        container.innerHTML = service ? renderServicePage(service) : renderHome();
+      }
 
-        if (!name || isNaN(price) || price < 0 || !duration || duration <= 0) {
-            showToast("Preencha corretamente os dados do serviço.");
-            return;
+      // Atualiza estado ativo das abas rápidas
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        if (btn.dataset.tab === pageId) {
+          btn.classList.add('bg-imperius-navy', 'text-imperius-gold');
+          btn.classList.remove('text-slate-600', 'hover:bg-slate-100');
+        } else {
+          btn.classList.remove('bg-imperius-navy', 'text-imperius-gold');
+          btn.classList.add('text-slate-600', 'hover:bg-slate-100');
         }
+      });
 
-        btn.disabled = true;
-        btn.textContent = "Salvando...";
-
-        try {
-            if (editId) {
-                await updateDoc(doc(db, "servicos", editId), {
-                    name, price, duration,
-                    updatedAt: serverTimestamp()
-                });
-                showToast("Serviço atualizado!");
-            } else {
-                await addDoc(collection(db, "servicos"), {
-                    name, price, duration,
-                    createdAt: serverTimestamp(),
-                    updatedAt: serverTimestamp()
-                });
-                showToast("Serviço cadastrado!");
-            }
-            showSection("gerenciarServicos");
-        } catch (error) {
-            showDatabaseError(error);
-        } finally {
-            btn.disabled = false;
-            btn.textContent = "Salvar Serviço";
-        }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    async function deleteService(id) {
-        const s = services.find(item => item.id === id);
-        if (!s || !confirm(`Deseja excluir "${s.name}"?`)) return;
-
-        try {
-            await deleteDoc(doc(db, "servicos", id));
-            showToast("Serviço excluído.");
-        } catch (error) {
-            showDatabaseError(error);
-        }
-    }
-
-    /* UTILS & FORMATADORES */
-    function applyPhoneMask(input) {
-        let v = input.value.replace(/\D/g, "");
-        if (v.length > 11) v = v.substring(0, 11);
-        
-        if (v.length > 10) {
-            v = v.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
-        } else if (v.length > 6) {
-            v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, "($1) $2-$3");
-        } else if (v.length > 2) {
-            v = v.replace(/^(\d{2})(\d{0,5})$/, "($1) $2");
-        } else if (v.length > 0) {
-            v = v.replace(/^(\d{0,2})$/, "($1");
-        }
-        input.value = v;
-    }
-
-    function getTodayString() {
-        const d = new Date();
-        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    }
-
-    function formatDate(date) {
-        if (!date) return "";
-        const parts = date.split("-");
-        return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : date;
-    }
-
-    function formatMoney(val) {
-        return Number(val || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    }
-
-    function escapeHTML(str) {
-        return String(str ?? "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
-
-    let toastTimer;
-    function showToast(msg) {
-        const toast = document.getElementById("toast");
-        toast.textContent = msg;
-        toast.classList.add("show");
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
-    }
-
-    function setConnected() {
-        const el = document.getElementById("connection");
-        el.textContent = "● Banco de dados conectado";
-        el.className = "connection connected";
-    }
-
-    function showDatabaseError(err) {
-        console.error("Firebase:", err);
-        const el = document.getElementById("connection");
-        el.textContent = "Erro ao conectar com o banco";
-        el.className = "connection error";
-        
-        const msg = err?.code === "permission-denied" 
-            ? "Acesso negado. Verifique as regras do Firestore." 
-            : "Erro ao acessar banco de dados.";
-        showToast(msg);
-    }
-
-    /* BINDINGS GLOBAIS PARA EVENTOS ONCLICK */
-    window.showSection = showSection;
-    window.newAppointment = newAppointment;
-    window.showSelectedServicePrice = showSelectedServicePrice;
-    window.saveAppointment = saveAppointment;
-    window.editAppointment = editAppointment;
-    window.confirmAppointment = confirmAppointment;
-    window.cancelAppointment = cancelAppointment;
-    window.renderClients = renderClients;
-    window.openNewClient = openNewClient;
-    window.editClient = editClient;
-    window.saveClient = saveClient;
-    window.deleteClient = deleteClient;
-    window.openNewService = openNewService;
-    window.editService = editService;
-    window.saveService = saveService;
-    window.deleteService = deleteService;
-    window.applyPhoneMask = applyPhoneMask;
-
-    /* INICIALIZAÇÃO */
-    async function startApp() {
-        try {
-            startClock();
-            await ensureDefaultServices();
-            listenServices();
-            listenAppointments();
-            listenClients();
-
-            const today = getTodayString();
-            document.getElementById("date").min = today;
-            document.getElementById("filterDate").value = today;
-        } catch (error) {
-            showDatabaseError(error);
-        }
-    }
-
-    startApp();
-</script>
-
+    // Inicialização
+    initNavigation();
+    navigateTo('home');
+  </script>
 </body>
 </html>

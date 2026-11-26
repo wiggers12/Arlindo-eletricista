@@ -1,939 +1,465 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>O Desmatamento - Livro de Estudos</title>
-<style>
-:root {
-  --green:#176b45;
-  --dark:#173b2c;
-  --light:#edf5ed;
-  --gold:#d5a94f;
-  --text:#26352d;
-  --muted:#65746a;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;background:#e8ede8;color:var(--text);
-  font-family:Georgia,"Times New Roman",serif;
-  line-height:1.75;
-}
-.toolbar{
-  position:sticky;top:0;z-index:10;
-  background:#173b2c;color:white;padding:12px;
-  display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
-  font-family:Arial,sans-serif;
-}
-button{
-  border:0;border-radius:7px;padding:11px 18px;
-  background:#d5a94f;color:#172c20;font-weight:bold;
-  cursor:pointer;
-}
-button:hover{opacity:.85}
-.book{
-  max-width:850px;margin:30px auto;background:white;
-  box-shadow:0 5px 30px #0002;
-}
-.page{padding:65px 75px;min-height:950px;position:relative}
-.cover{
-  min-height:950px;background:linear-gradient(145deg,#102d21,#176b45);
-  color:white;text-align:center;display:flex;
-  flex-direction:column;justify-content:center;align-items:center;
-  padding:65px;
-}
-.cover .eyebrow{letter-spacing:5px;font: bold 12px Arial;color:#e9ca7e}
-.cover h1{font-size:55px;line-height:1.08;margin:25px 0}
-.cover h2{font:18px Arial;font-weight:normal;color:#d9eadb}
-.cover-art{font-size:100px;margin:25px}
-.cover .line{width:90px;height:4px;background:#d5a94f;margin:25px}
-.cover p{font:14px Arial;color:#e2eee5}
-h1,h2,h3{color:var(--dark);line-height:1.25}
-h1{font-size:34px}
-h2{font-size:26px;margin-top:35px}
-h3{font-size:19px;margin-top:25px}
-p{margin:12px 0}
-.lead{font-size:19px;color:#486052}
-.chapter{
-  color:var(--green);font: bold 12px Arial;
-  text-transform:uppercase;letter-spacing:3px;
-}
-.box{
-  padding:20px 23px;background:var(--light);
-  border-left:5px solid var(--green);margin:25px 0;
-  border-radius:4px;
-}
-.box.gold{background:#fbf5e8;border-color:var(--gold)}
-.box strong{color:var(--dark)}
-.fact{
-  background:#f3f5f2;padding:17px;border-radius:8px;
-  margin:18px 0;
-}
-.question{
-  border:1px solid #dce5dc;padding:17px 20px;
-  border-radius:8px;margin:18px 0;break-inside:avoid;
-}
-.question b{color:var(--green)}
-.answer-lines{
-  height:65px;border-bottom:1px solid #aab7ad;
-  margin-top:10px;
-}
-.answer-lines.tall{height:110px}
-ul,ol{padding-left:27px}
-li{margin:7px 0}
-table{width:100%;border-collapse:collapse;margin:20px 0}
-td,th{padding:12px;border:1px solid #dce5dc;text-align:left}
-th{background:#edf5ed;color:var(--dark)}
-.toc a{color:var(--green);text-decoration:none}
-.toc li{padding:4px 0}
-.word{font-weight:bold;color:var(--green)}
-.footer{
-  position:absolute;bottom:25px;left:75px;right:75px;
-  border-top:1px solid #dce5dc;padding-top:8px;
-  font:11px Arial;color:#87948a;display:flex;
-  justify-content:space-between;
-}
-.divider{height:1px;background:#dce5dc;margin:35px 0}
-.small{font-size:13px;color:var(--muted)}
-.score{
-  padding:15px;border:2px dashed #a7b7a9;
-  margin:25px 0;border-radius:8px;
-}
-.glossary dt{font-weight:bold;color:var(--green);margin-top:14px}
-.glossary dd{margin-left:0}
-#answerKey{display:none}
-#answerKey.visible{display:block}
-@media(max-width:650px){
- .book{margin:0}
- .page{padding:35px 25px;min-height:auto}
- .cover{min-height:750px}
- .cover h1{font-size:42px}
- .footer{position:static;margin-top:45px}
- h1{font-size:29px}
-}
-@media print{
- body{background:white}
- .toolbar{display:none!important}
- .book{margin:0;box-shadow:none;max-width:none}
- .page{padding:45px 55px;min-height:0;page-break-after:always}
- .cover{min-height:100vh}
- .footer{position:static;margin-top:45px}
- #answerKey{display:none!important}
- #answerKey.print-key{display:block!important}
- .question{break-inside:avoid}
- @page{margin:12mm;size:A4}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orçamento de Serviços Elétricos - #2026-042</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #eab308;
+            --text: #334155;
+            --light-bg: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            background-color: #e2e8f0;
+            line-height: 1.5;
+            padding: 20px;
+        }
+
+        .page {
+            max-width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Cabeçalho */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-placeholder {
+            width: 64px;
+            height: 64px;
+            background-color: var(--primary);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            border-radius: 8px;
+        }
+
+        .company-details h1 {
+            color: var(--primary);
+            font-size: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .company-details p {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .quote-meta {
+            text-align: right;
+        }
+
+        .quote-meta h2 {
+            color: var(--primary);
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        .quote-meta p {
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        /* Dados do Cliente */
+        .client-box {
+            background-color: var(--light-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .client-box h3 {
+            grid-column: 1 / -1;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #64748b;
+            margin-bottom: 5px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 4px;
+        }
+
+        /* Tabelas */
+        .section-title {
+            font-size: 15px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            font-size: 13px;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: #ffffff;
+            text-align: left;
+            padding: 10px 12px;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:nth-child(even) td {
+            background-color: var(--light-bg);
+        }
+
+        .num {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        /* Totais */
+        .totals-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 30px;
+        }
+
+        .totals-box {
+            width: 280px;
+            background-color: var(--light-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .total-row.grand-total {
+            border-top: 2px solid var(--primary);
+            padding-top: 10px;
+            margin-top: 10px;
+            margin-bottom: 0;
+            font-weight: bold;
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        /* Condições e Assinaturas */
+        .terms {
+            font-size: 12px;
+            color: #475569;
+            background-color: #fefce8;
+            border-left: 4px solid var(--accent);
+            padding: 12px 15px;
+            margin-bottom: 40px;
+        }
+
+        .terms h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .terms ul {
+            padding-left: 18px;
+        }
+
+        .signatures {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .sig-line {
+            border-top: 1px solid var(--primary);
+            padding-top: 8px;
+        }
+
+        /* Botão de Impressão (Oculto no PDF) */
+        .no-print {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-print {
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .btn-print:hover {
+            background-color: #1e293b;
+        }
+
+        /* Regras para Impressão / Salvar em PDF */
+        @media print {
+            body {
+                background-color: #ffffff;
+                padding: 0;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+                padding: 15mm;
+                width: 100%;
+                min-height: auto;
+            }
+            .no-print {
+                display: none;
+            }
+            th {
+                background-color: #0f172a !important;
+                color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .logo-placeholder {
+                background-color: #0f172a !important;
+                color: #eab308 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .terms {
+                background-color: #fefce8 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="toolbar">
-  <button onclick="window.print()">Imprimir / Salvar em PDF</button>
-  <button onclick="toggleAnswers()">Mostrar gabarito (adulto)</button>
-</div>
-
-<div class="book">
-
-<!-- CAPA -->
-<section class="page cover">
-  <div class="eyebrow">COLEÇÃO PEQUENOS GRANDES PENSADORES</div>
-  <div class="cover-art">🌳🌎🌳</div>
-  <h1>O<br>DESMATAMENTO</h1>
-  <div class="line"></div>
-  <h2>O futuro das florestas está em nossas mãos</h2>
-  <p>UM LIVRO PARA LER, DESCOBRIR, QUESTIONAR E APRENDER</p>
-  <div style="margin-top:75px;font:14px Arial">
-    Nome: __________________________________
-    <br><br>
-    Idade: __________ Data: ______________
-  </div>
-</section>
-
-<!-- APRESENTAÇÃO -->
-<section class="page">
-  <div class="chapter">Antes de começar</div>
-  <h1>Uma missão importante</h1>
-  <p class="lead">Você já imaginou como seria o mundo se todas as árvores desaparecessem?</p>
-  <p>Imagine acordar pela manhã e não encontrar mais pássaros cantando. Não existir sombra das árvores nas ruas. Os rios ficarem mais secos e muitos animais não terem onde morar.</p>
-  <p>Essa situação parece impossível, mas muitas florestas estão desaparecendo todos os anos por causa das atividades humanas.</p>
-  <p>Neste livro, você será um investigador da natureza. Sua missão será descobrir por que as florestas são tão importantes, o que ameaça sua existência e como podemos protegê-las.</p>
-
-  <div class="box gold">
-    <strong>Seu desafio:</strong>
-    <p>Não leia apenas para decorar informações. Leia para compreender. Um bom cientista não aceita qualquer explicação: ele observa, compara, faz perguntas e procura evidências.</p>
-  </div>
-
-  <h2>Como estudar este livro</h2>
-  <ol>
-    <li>Leia um capítulo com atenção.</li>
-    <li>Observe os exemplos e curiosidades.</li>
-    <li>Tente responder aos desafios sem consultar o texto.</li>
-    <li>Ao terminar todos os capítulos, faça a avaliação final.</li>
-    <li>Explique suas respostas com suas próprias palavras.</li>
-  </ol>
-
-  <div class="box">
-    <strong>Uma regra de ouro:</strong>
-    <p>Uma resposta bem explicada vale mais do que uma resposta curta que apenas repete o livro.</p>
-  </div>
-</section>
-
-<!-- SUMÁRIO -->
-<section class="page">
-  <div class="chapter">Organização do livro</div>
-  <h1>Sumário</h1>
-  <ol class="toc">
-    <li><a href="#c1">O que é uma floresta?</a></li>
-    <li><a href="#c2">Por que as árvores são importantes?</a></li>
-    <li><a href="#c3">O que é desmatamento?</a></li>
-    <li><a href="#c4">Por que as florestas são destruídas?</a></li>
-    <li><a href="#c5">O que acontece quando uma floresta desaparece?</a></li>
-    <li><a href="#c6">O desmatamento e o clima</a></li>
-    <li><a href="#c7">A Amazônia e a Mata Atlântica</a></li>
-    <li><a href="#c8">Como podemos proteger as florestas?</a></li>
-    <li><a href="#c9">O que aprendemos?</a></li>
-    <li><a href="#prova">Avaliação final</a></li>
-    <li><a href="#glossario">Glossário</a></li>
-  </ol>
-  <div class="divider"></div>
-  <h2>Uma pergunta para pensar</h2>
-  <p>Se uma árvore leva muitos anos para crescer, mas pode ser derrubada em poucos minutos, por que precisamos pensar muito antes de cortá-la?</p>
-  <div class="answer-lines tall"></div>
-</section>
-
-<!-- CAPÍTULO 1 -->
-<section class="page" id="c1">
-  <div class="chapter">Capítulo 01</div>
-  <h1>O que é uma floresta?</h1>
-  <p class="lead">Uma floresta é muito mais do que um lugar cheio de árvores. É uma comunidade de seres vivos que dependem uns dos outros.</p>
-
-  <p>Uma floresta é um ambiente natural onde existem muitas árvores, plantas, animais, fungos e microrganismos. Todos esses seres vivos interagem entre si e com elementos que não têm vida, como água, ar, luz solar e solo.</p>
-
-  <p>Esse conjunto de seres vivos e elementos não vivos, que interagem em um ambiente, é chamado de <span class="word">ecossistema</span>.</p>
-
-  <h2>Quem vive em uma floresta?</h2>
-  <ul>
-    <li><strong>Plantas:</strong> árvores, arbustos, flores e pequenas ervas.</li>
-    <li><strong>Animais:</strong> aves, insetos, mamíferos, répteis e anfíbios.</li>
-    <li><strong>Fungos:</strong> ajudam a decompor restos de seres vivos.</li>
-    <li><strong>Microrganismos:</strong> seres muito pequenos que participam de diversos processos naturais.</li>
-    <li><strong>Elementos não vivos:</strong> água, ar, luz solar e minerais do solo.</li>
-  </ul>
-
-  <div class="box">
-    <strong>Imagine esta situação:</strong>
-    <p>Uma árvore produz frutos. Um pássaro come esses frutos e espalha algumas sementes em outro lugar. Dessas sementes podem nascer novas árvores.</p>
-    <p>Percebeu? Os seres vivos participam de uma rede de relações.</p>
-  </div>
-
-  <h2>A floresta funciona como uma equipe</h2>
-  <p>As plantas produzem seu próprio alimento usando a energia da luz solar. Os animais podem se alimentar de plantas ou de outros animais. Os fungos e muitos microrganismos ajudam a decompor folhas e organismos mortos, devolvendo nutrientes ao ambiente.</p>
-
-  <p>Quando uma parte importante dessa equipe desaparece, outras partes também podem ser afetadas.</p>
-
-  <div class="fact">
-    <strong>Curiosidade científica</strong>
-    <p>O solo de uma floresta não é apenas terra. Ele pode abrigar uma enorme quantidade de organismos, desde minhocas até seres microscópicos.</p>
-  </div>
-
-  <h2>Desafio do investigador</h2>
-  <div class="question">
-    <b>1.</b> Uma floresta tem árvores, água, animais e fungos. Por que podemos dizer que ela é um ecossistema?
-    <div class="answer-lines"></div>
-  </div>
-  <div class="question">
-    <b>2.</b> Se todos os fungos de uma floresta desaparecessem, qual poderia ser uma consequência para o ambiente? Explique.
-    <div class="answer-lines tall"></div>
-  </div>
-</section>
-
-<!-- CAPÍTULO 2 -->
-<section class="page" id="c2">
-  <div class="chapter">Capítulo 02</div>
-  <h1>Por que as árvores são importantes?</h1>
-  <p class="lead">As árvores trabalham silenciosamente todos os dias para manter o equilíbrio da natureza.</p>
-
-  <h2>1. Elas ajudam a produzir oxigênio</h2>
-  <p>As árvores realizam um processo chamado <strong>fotossíntese</strong>. Nesse processo, utilizam luz solar, água e gás carbônico para produzir açúcares, que servem de alimento para a planta. Durante esse processo, liberam oxigênio.</p>
-
-  <h2>2. Elas armazenam carbono</h2>
-  <p>As árvores absorvem gás carbônico da atmosfera e utilizam o carbono para formar troncos, galhos, raízes e folhas. Parte desse carbono fica armazenada na madeira e no solo.</p>
-  <p>Isso é importante porque o excesso de gases de efeito estufa na atmosfera contribui para o aquecimento global.</p>
-
-  <h2>3. Elas protegem o solo</h2>
-  <p>As raízes ajudam a manter o solo firme. Quando chove, elas reduzem a possibilidade de a terra ser carregada pela água.</p>
-  <p>As folhas que caem também formam uma camada de matéria orgânica, que ajuda a manter a qualidade do solo.</p>
-
-  <h2>4. Elas ajudam no ciclo da água</h2>
-  <p>As raízes absorvem água do solo. Parte dessa água é liberada pelas folhas em forma de vapor, em um processo chamado <strong>transpiração</strong>.</p>
-  <p>Esse vapor participa da umidade do ar e dos processos que influenciam a formação de nuvens e chuvas.</p>
-
-  <h2>5. Elas são moradia e alimento</h2>
-  <p>Uma árvore pode servir de abrigo para pássaros, insetos e outros animais. Seus frutos, sementes, folhas e flores alimentam diversas espécies.</p>
-
-  <div class="box gold">
-    <strong>Pense como um cientista:</strong>
-    <p>Uma árvore pode ser importante mesmo quando não produz frutos que os seres humanos comem. Ela protege o solo, abriga animais, participa do ciclo da água e armazena carbono.</p>
-  </div>
-
-  <h2>Desafio do investigador</h2>
-  <div class="question">
-    <b>1.</b> Explique a diferença entre fotossíntese e transpiração.
-    <div class="answer-lines tall"></div>
-  </div>
-  <div class="question">
-    <b>2.</b> Uma pessoa diz: "Uma árvore só é útil quando dá frutas". Você concorda? Apresente pelo menos três argumentos.
-    <div class="answer-lines tall"></div>
-  </div>
-  <div class="question">
-    <b>3.</b> Por que as raízes ajudam a evitar a erosão do solo?
-    <div class="answer-lines"></div>
-  </div>
-</section>
-
-<!-- CAPÍTULO 3 -->
-<section class="page" id="c3">
-  <div class="chapter">Capítulo 03</div>
-  <h1>O que é desmatamento?</h1>
-  <p class="lead">É a retirada ou destruição da vegetação natural de uma área, geralmente para dar outro uso à terra.</p>
-
-  <p>O desmatamento acontece quando uma floresta é removida ou destruída para que o terreno seja utilizado de outra maneira.</p>
-  <p>Por exemplo, uma área coberta por árvores pode ser transformada em pastagem, plantação, estrada, mineração ou construção.</p>
-
-  <h2>Desmatamento não é a mesma coisa que cortar uma árvore</h2>
-  <p>Imagine que uma árvore doente seja retirada de uma praça e outra seja plantada no lugar. Isso não significa necessariamente que houve desmatamento.</p>
-  <p>O desmatamento envolve a perda da vegetação natural de uma área, especialmente quando uma floresta é substituída por outro tipo de ocupação.</p>
-
-  <h2>E o que é uma queimada?</h2>
-  <p>Uma queimada é a utilização ou ocorrência do fogo em uma área de vegetação.</p>
-  <p>O fogo pode destruir árvores, matar animais, prejudicar o solo e liberar gases na atmosfera.</p>
-  <p>Quando uma floresta é queimada e depois substituída por pastagem, por exemplo, a queimada pode fazer parte de um processo de desmatamento.</p>
-
-  <div class="box">
-    <strong>Uma diferença importante:</strong>
-    <ul>
-      <li>Desmatamento: retirada ou destruição da vegetação natural.</li>
-      <li>Queimada: uso ou ocorrência do fogo em uma área.</li>
-    </ul>
-    <p>Uma floresta pode ser desmatada sem fogo, por meio do corte das árvores. E um incêndio pode atingir uma floresta sem que ela seja imediatamente transformada em outra área de uso humano.</p>
-  </div>
-
-  <h2>O desmatamento pode ser permanente?</h2>
-  <p>Algumas áreas podem se regenerar naturalmente quando a destruição termina e existem condições para o crescimento da vegetação. Porém, isso pode levar muitos anos.</p>
-  <p>Se o solo estiver muito degradado ou a área for ocupada continuamente, a recuperação poderá ser muito difícil.</p>
-
-  <div class="fact">
-    <strong>Curiosidade:</strong>
-    <p>Mesmo quando uma floresta volta a ter árvores, ela pode não recuperar rapidamente toda a biodiversidade e as relações ecológicas que existiam antes.</p>
-  </div>
-
-  <h2>Desafio do investigador</h2>
-  <div class="question">
-    <b>1.</b> Uma floresta foi derrubada com máquinas, sem utilizar fogo. Houve desmatamento? Justifique.
-    <div class="answer-lines"></div>
-  </div>
-  <div class="question">
-    <b>2.</b> Um incêndio atingiu uma floresta, mas ela não foi transformada em pastagem ou construção. Podemos dizer que houve um incêndio? E podemos afirmar que houve uma mudança no ecossistema?
-    <div class="answer-lines tall"></div>
-  </div>
-</section>
-
-<!-- CAPÍTULO 4 -->
-<section class="page" id="c4">
-  <div class="chapter">Capítulo 04</div>
-  <h1>Por que as florestas são destruídas?</h1>
-  <p class="lead">Existem diferentes motivos para o desmatamento. Muitas vezes, eles estão relacionados à maneira como os seres humanos utilizam a terra e os recursos naturais.</p>
-
-  <h2>1. Criação de animais e agricultura</h2>
-  <p>Grandes áreas de floresta podem ser derrubadas para abrir espaço para pastagens ou plantações.</p>
-  <p>A produção de alimentos é importante, mas precisa ser realizada com planejamento para evitar a destruição desnecessária de ambientes naturais.</p>
-
-  <h2>2. Exploração de madeira</h2>
-  <p>As árvores podem ser cortadas para produzir móveis, papel, construções e outros produtos.</p>
-  <p>O problema acontece quando a retirada é ilegal, excessiva ou feita sem planejamento e respeito à recuperação da floresta.</p>
-
-  <h2>3. Mineração</h2>
-  <p>A mineração retira minerais que existem no solo e no subsolo. Para abrir minas, estradas e estruturas, algumas áreas de vegetação podem ser destruídas.</p>
-  <p>Além disso, a atividade pode provocar contaminação de rios e alterações no terreno quando não é devidamente controlada.</p>
-
-  <h2>4. Construção de estradas e cidades</h2>
-  <p>Estradas, bairros, fábricas e outras construções podem ocupar áreas que antes eram cobertas por vegetação natural.</p>
-  <p>Uma estrada também pode dividir uma floresta em partes menores, dificultando o deslocamento de alguns animais.</p>
-
-  <h2>5. Queimadas e incêndios</h2>
-  <p>O fogo pode ser utilizado para limpar terrenos, mas também pode escapar do controle. Em períodos secos, o risco de incêndios pode aumentar.</p>
-  <p>Incêndios florestais podem destruir grandes áreas e causar danos à vida humana e aos animais.</p>
-
-  <div class="box gold">
-    <strong>Uma questão de responsabilidade:</strong>
-    <p>Os seres humanos precisam de alimentos, moradia, energia e materiais. Entretanto, satisfazer essas necessidades não significa que devemos destruir todos os ambientes naturais. É possível buscar formas de produzir e construir com menos impacto.</p>
-  </div>
-
-  <h2>Desafio do investigador</h2>
-  <div class="question">
-    <b>1.</b> Uma empresa derruba uma floresta para construir uma estrada. Qual é a atividade que está provocando a transformação da área?
-    <div class="answer-lines"></div>
-  </div>
-  <div class="question">
-    <b>2.</b> Por que a construção de uma estrada pode prejudicar os animais mesmo quando ela não destrói toda a floresta?
-    <div class="answer-lines tall"></div>
-  </div>
-  <div class="question">
-    <b>3.</b> A agricultura é necessária para produzir alimentos. Isso significa que toda derrubada de floresta para agricultura é aceitável? Explique seu raciocínio.
-    <div class="answer-lines tall"></div>
-  </div>
-</section>
-
-<!-- CAPÍTULO 5 -->
-<section class="page" id="c5">
-  <div class="chapter">Capítulo 05</div>
-  <h1>O que acontece quando uma floresta desaparece?</h1>
-  <p class="lead">O desmatamento não afeta apenas as árvores. Ele pode provocar uma sequência de problemas em todo o ambiente.</p>
-
-  <h2>1. Os animais perdem seus habitats</h2>
-  <p><strong>Habitat</strong> é o lugar onde um ser vivo encontra condições para viver, alimentar-se e reproduzir-se.</p>
-  <p>Quando uma floresta desaparece, muitos animais perdem abrigo, alimento e locais para construir seus ninhos.</p>
-  <p>Alguns conseguem se deslocar para outros lugares. Outros podem morrer ou ter sua população reduzida.</p>
-
-  <h2>2. O solo pode ficar desprotegido</h2>
-  <p>Sem árvores e outras plantas, o solo fica mais exposto à chuva e ao vento.</p>
-  <p>A água pode carregar a camada superficial da terra, que contém muitos nutrientes. Esse processo é chamado de <strong>erosão</strong>.</p>
-
-  <h2>3. Os rios podem ser prejudicados</h2>
-  <p>Quando a terra é carregada pela chuva, parte dela pode chegar aos rios. Isso pode aumentar a quantidade de sedimentos na água.</p>
-  <p>Além disso, a retirada da vegetação próxima aos rios prejudica as matas ciliares, que ajudam a proteger suas margens.</p>
-
-  <h2>4. A biodiversidade diminui</h2>
-  <p><strong>Biodiversidade</strong> é a variedade de formas de vida existentes em um ambiente ou no planeta.</p>
-  <p>Quando espécies desaparecem de uma região, a biodiversidade local pode diminuir. Isso pode alterar relações como alimentação, polinização e dispersão de sementes.</p>
-
-  <h2>5. As pessoas também são afetadas</h2>
-  <p>As comunidades humanas dependem da natureza de muitas maneiras. Florestas podem contribuir para a disponibilidade de água, alimentos, materiais, medicamentos e condições ambientais adequadas.</p>
-  <p>Povos indígenas e comunidades tradicionais também possuem relações culturais, históricas e econômicas com seus territórios florestais.</p>
-
-  <div class="box">
-    <strong>Entenda a sequência:</strong>
-    <p>Retirada da vegetação → solo desprotegido → erosão → sedimentos nos rios → possíveis prejuízos aos ambientes aquáticos.</p>
-    <p>Essa sequência é um exemplo de causa e consequência.</p>
-  </div>
-
-  <h2>Desafio do investigador</h2>
-  <div class="question">
-    <b>1.</b> Explique por que a perda de árvores pode prejudicar um animal que nunca se alimentou diretamente de árvores.
-    <div class="answer-lines tall"></div>
-  </div>
-  <div class="question">
-    <b>2.</b> Se a vegetação próxima de um rio for retirada, quais dois problemas podem acontecer com esse rio?
-    <div class="answer-lines tall"></div>
-  </div>
-  <div class="question">
-    <b>3.</b> Por que a destruição de uma floresta pode prejudicar pessoas que moram muito longe dela?
-    <div class="answer-lines tall"></div>
-  </div>
-</section>
-
-<!-- CAPÍTULO 6 -->
-<section class="page" id="c6">
-  <div class="chapter">Capítulo 06</div>
-  <h1>O desmatamento e o clima</h1>
-  <p class="lead">As florestas participam do equilíbrio climático do planeta.</p>
-
-  <h2>O que é clima?</h2>
-  <p>O clima é o conjunto de características do tempo atmosférico de uma região observado durante muitos anos. Ele envolve padrões de temperatura, chuvas, ventos e outras condições.</p>
-  <p>Não devemos confundir clima com tempo. Se hoje está chovendo, isso descreve o tempo atmosférico. Para compreender o clima, precisamos observar padrões durante períodos longos.</p>
-
-  <h2>O que é efeito estufa?</h2>
-  <p>A atmosfera possui gases que retêm parte do calor que a Terra emite. Esse fenômeno natural é chamado de <strong>efeito estufa</strong>.</p>
-  <p>Sem ele, nosso planeta seria muito mais frio. O problema é que atividades humanas aumentam a quantidade de gases de efeito estufa, intensificando o aquecimento global.</p>
-
-  <h2>Como o desmatamento participa desse problema?</h2>
-  <ul>
-    <li>Quando árvores são cortadas ou queimadas, parte do carbono armazenado pode voltar à atmosfera.</li>
-    <li>Com menos árvores, diminui a capacidade daquela área de absorver e armazenar carbono no futuro.</li>
-    <li>A retirada da vegetação também pode alterar a umidade e a circulação de água na região.</li>
-  </ul>
-
-  <h2>O ciclo da água</h2>
-  <p>A água evapora de rios, lagos e oceanos. As plantas também liberam vapor pela transpiração. Esse vapor participa da formação de nuvens e da ocorrência de chuvas.</p>
-  <p>Em grandes regiões florestais, a vegetação contribui para a circulação de umidade. Por isso, a destruição de grandes áreas pode modificar o funcionamento do ciclo da água.</p>
-
-  <div class="fact">
-    <strong>Uma informação importante:</strong>
-    <p>As florestas não produzem toda a chuva do planeta. Os oceanos são a principal fonte de água que evapora para a atmosfera. Mas as florestas têm papel importante na circulação da umidade sobre os continentes.</p>
-  </div>
-
-  <h2>Desafio do investigador</h2>
-  <div class="question">
-    <b>1.</b> Por que o desmatamento pode contribuir para o aquecimento global? Apresente duas explicações.
-    <div class="answer-lines tall"></div>
-  </div>
-  <div class="question">
-    <b>2.</b> Qual é a diferença entre tempo atmosférico e clima?
-    <div class="answer-lines"></div>
-  </div>
-  <div class="question">
-    <b>3.</b> Imagine duas regiões: uma possui uma floresta preservada e outra teve grande parte da vegetação retirada. Por que elas podem apresentar diferenças de temperatura e umidade?
-    <div class="answer-lines tall"></div>
-  </div>
-</section>
-
-<!-- CAPÍTULO 7 -->
-<section class="page" id="c7">
-  <div class="chapter">Capítulo 07</div>
-  <h1>A Amazônia e a Mata Atlântica</h1>
-  <p class="lead">O Brasil possui florestas extraordinárias, com grande variedade de plantas e animais.</p>
-
-  <h2>A Floresta Amazônica</h2>
-  <p>A <strong>Amazônia</strong> é uma das maiores regiões de floresta tropical do planeta. Ela abriga uma enorme diversidade de espécies.</p>
-  <p>Nela encontramos árvores gigantes, rios extensos, peixes, aves, insetos, mamíferos e inúmeras outras formas de vida.</p>
-  <p>A região também é muito importante para o armazenamento de carbono e para a circulação de umidade na América do Sul.</p>
-
-  <div class="fact">
-    <strong>Você sabia?</strong>
-    <p>A Amazônia não existe apenas no Brasil. A região amazônica se estende por vários países da América do Sul.</p>
-  </div>
-
-  <h2>A Mata Atlântica</h2>
-  <p>A <strong>Mata Atlântica</strong> é um bioma brasileiro que originalmente ocupava uma grande extensão do litoral e de áreas do interior do país.</p>
-  <p>Ao longo de muitos séculos, a expansão das cidades, agricultura, estradas e outras atividades humanas provocou uma grande redução de sua vegetação original.</p>
-  <p>Mesmo com essa perda, a Mata Atlântica continua sendo extremamente importante para a biodiversidade, a proteção de nascentes e o fornecimento de benefícios ambientais para milhões de pessoas.</p>
-
-  <h2>O que é um bioma?</h2>
-  <p>Um <strong>bioma</strong> é uma grande região que apresenta características próprias de clima, vegetação e formas de vida.</p>
-  <p>O Brasil possui diferentes biomas, como Amazônia, Mata Atlântica, Cerrado, Caatinga, Pantanal e Pampa.</p>
-
-  <h2>Por que devemos preservar os dois?</h2>
-  <p>Porque cada região possui espécies e características próprias. Proteger somente uma floresta não significa proteger toda a biodiversidade brasileira.</p>
-  <p>Um animal adaptado à Mata Atlântica pode não conseguir sobreviver na Amazônia. Cada ambiente possui condições e relações ecológicas particulares.</p>
-
-  <div class="box gold">
-    <strong>Desafio de comparação:</strong>
-    <p>Imagine que uma pessoa diga: "Se a Amazônia está protegida, não precisamos nos preocupar com a Mata Atlântica".</p>
-    <p>Essa afirmação está correta? Pense na diversidade de espécies e nas diferenças entre os ambientes.</p>
-  </div>
-
-  <h2>Desafio do investigador</h2>
-  <div class="question">
-    <b>1.</b> O que é um bioma? Explique usando a Amazônia como exemplo.
-    <div class="answer-lines"></div>
-  </div>
-  <div class="question">
-    <b>2.</b> Por que proteger a Amazônia não é suficiente para proteger toda a biodiversidade brasileira?
-    <div class="answer-lines tall"></div>
-  </div>
-  <div class="question">
-    <b>3.</b> Por que a Mata Atlântica precisa de atenção mesmo depois de já ter perdido grande parte de sua vegetação original?
-    <div class="answer-lines tall"></div>
-  </div>
-</section>
-
-<!-- CAPÍTULO 8 -->
-<section class="page" id="c8">
-  <div class="chapter">Capítulo 08</div>
-  <h1>Como podemos proteger as florestas?</h1>
-  <p class="lead">Conhecer o problema é o primeiro passo. O próximo é compreender como podemos agir.</p>
-
-  <h2>1. Combater o desmatamento ilegal</h2>
-  <p>Existem leis que protegem as florestas. Órgãos ambientais fiscalizam atividades e podem aplicar medidas contra quem desrespeita as regras.</p>
-
-  <h2>2. Recuperar áreas degradadas</h2>
-  <p>O plantio de árvores nativas pode ajudar na recuperação de áreas que perderam sua vegetação.</p>
-  <p>Mas plantar árvores não é simplesmente colocar qualquer muda em qualquer lugar. É importante escolher espécies adequadas à região e considerar o solo, a água e os animais locais.</p>
-
-  <h2>3. Proteger as matas ciliares</h2>
-  <p>As matas ciliares são vegetações que crescem nas margens de rios e outros cursos de água. Elas ajudam a proteger o solo, reduzir a erosão e manter a qualidade da água.</p>
-
-  <h2>4. Produzir de maneira sustentável</h2>
-  <p>Podemos produzir alimentos e materiais utilizando melhor as áreas já abertas, reduzindo desperdícios e respeitando os limites da natureza.</p>
-
-  <h2>5. Consumir com responsabilidade</h2>
-  <p>Podemos evitar desperdícios, utilizar produtos de origem responsável e dar preferência a empresas que respeitam as leis ambientais.</p>
-
-  <h2>6. Estudar e compartilhar conhecimento</h2>
-  <p>Cientistas, professores, comunidades, agricultores, governos e cidadãos podem trabalhar juntos para proteger a natureza.</p>
-
-  <div class="box">
-    <strong>Atenção:</strong>
-    <p>Plantar uma árvore é uma boa atitude, mas não substitui a proteção de uma floresta natural. Uma floresta possui muitas espécies, diferentes idades de árvores e relações ecológicas que levam muito tempo para se formar.</p>
-  </div>
-
-  <h2>Uma situação para resolver</h2>
-  <p>Imagine que uma cidade possui um terreno próximo a um rio. Algumas pessoas querem construir um estacionamento. Outras defendem a recuperação da vegetação local.</p>
-  <p>Uma solução responsável precisa considerar as necessidades da população, os riscos de erosão, a proteção do rio e a importância dos animais que vivem naquela área.</p>
-
-  <h2>Desafio do investigador</h2>
-  <div class="question">
-    <b>1.</b> Por que plantar árvores em uma área degradada é diferente de preservar uma floresta que nunca foi destruída?
-    <div class="answer-lines tall"></div>
-  </div>
-  <div class="question">
-    <b>2.</b> Uma família quer ajudar o meio ambiente. Cite quatro atitudes que ela pode praticar.
-    <div class="answer-lines tall"></div>
-  </div>
-  <div class="question">
-    <b>3.</b> Se você fosse responsável por cuidar de um terreno próximo a um rio, que medidas tomaria? Explique pelo menos três.
-    <div class="answer-lines tall"></div>
-  </div>
-</section>
-
-<!-- CAPÍTULO 9 -->
-<section class="page" id="c9">
-  <div class="chapter">Capítulo 09</div>
-  <h1>O que aprendemos?</h1>
-  <p class="lead">Antes da prova, vamos organizar as principais descobertas.</p>
-
-  <table>
-    <tr><th>Conceito</th><th>O que significa?</th></tr>
-    <tr><td>Ecossistema</td><td>Conjunto de seres vivos e elementos não vivos que interagem.</td></tr>
-    <tr><td>Fotossíntese</td><td>Processo pelo qual plantas utilizam luz, água e gás carbônico para produzir açúcares.</td></tr>
-    <tr><td>Desmatamento</td><td>Retirada ou destruição da vegetação natural de uma área.</td></tr>
-    <tr><td>Habitat</td><td>Lugar onde um organismo vive.</td></tr>
-    <tr><td>Biodiversidade</td><td>Variedade de formas de vida.</td></tr>
-    <tr><td>Erosão</td><td>Desgaste e transporte de partículas do solo.</td></tr>
-    <tr><td>Bioma</td><td>Grande região com características próprias de clima, vegetação e vida.</td></tr>
-    <tr><td>Sustentabilidade</td><td>Utilização responsável dos recursos, considerando o presente e o futuro.</td></tr>
-  </table>
-
-  <h2>As cinco grandes ideias</h2>
-  <ol>
-    <li>Uma floresta é um ecossistema complexo.</li>
-    <li>As árvores protegem o solo, participam do ciclo da água e armazenam carbono.</li>
-    <li>O desmatamento pode ser provocado por diversas atividades humanas.</li>
-    <li>A destruição das florestas prejudica animais, plantas, rios, clima e pessoas.</li>
-    <li>Preservar, fiscalizar, recuperar e utilizar os recursos de forma responsável são atitudes importantes.</li>
-  </ol>
-
-  <div class="box gold">
-    <strong>Antes de fazer a prova:</strong>
-    <p>Feche o livro e tente explicar, sem consultar o texto, por que uma floresta é importante para a vida na Terra.</p>
-  </div>
-</section>
-
-<!-- PROVA -->
-<section class="page" id="prova">
-  <div class="chapter">Avaliação de aprendizagem</div>
-  <h1>Prova do jovem cientista</h1>
-  <p class="lead">Agora é hora de demonstrar tudo o que você compreendeu.</p>
-  <p><strong>Nome:</strong> _______________________________________</p>
-  <p><strong>Data:</strong> ___________________ <strong>Nota:</strong> ______ / 100</p>
-
-  <div class="score">
-    <strong>Instruções:</strong>
-    <ul>
-      <li>Leia cada questão com atenção.</li>
-      <li>Não consulte o livro durante a avaliação.</li>
-      <li>Nas questões abertas, explique seu raciocínio.</li>
-      <li>Não basta responder: é importante justificar.</li>
-    </ul>
-  </div>
-
-  <h2>Parte 1 — Compreensão do conteúdo</h2>
-  <p class="small">Questões 1 a 5 — 4 pontos cada.</p>
-
-  <div class="question">
-    <b>1.</b> Explique por que uma floresta é considerada um ecossistema e não apenas um conjunto de árvores.
-    <div class="answer-lines tall"></div>
-  </div>
-  <div class="question">
-    <b>2.</b> Qual é a relação entre as raízes das árvores e a proteção dos rios?
-    <div class="answer-lines tall"></div>
-  </div>
-  <div class="question">
-    <b>3.</b> Explique por que o desaparecimento de uma espécie de animal pode afetar outros seres vivos da floresta.
-    <div class="answer-lines tall"></div>
-  </div>
-  <div class="question">
-    <b>4.</b> Qual é a diferença entre desmatamento e queimada? Dê um exemplo de cada situação.
-    <div class="answer-lines tall"></div>
-  </div>
-  <div class="question">
-    <b>5.</b> Explique por que o desmatamento pode prejudicar pessoas que vivem longe da floresta.
-    <div class="answer-lines tall"></div>
-  </div>
-
-  <h2>Parte 2 — Verdadeiro ou falso</h2>
-  <p class="small">Questões 6 a 10 — 3 pontos cada.</p>
-  <p>Escreva V para verdadeiro e F para falso. Depois, escolha duas afirmações falsas e corrija-as com suas palavras.</p>
-
-  <div class="question">
-    <b>6.</b> ( &nbsp; ) As árvores participam do ciclo da água por meio da transpiração.
-  </div>
-  <div class="question">
-    <b>7.</b> ( &nbsp; ) Toda floresta pode ser recuperada completamente em poucos meses.
-  </div>
-  <div class="question">
-    <b>8.</b> ( &nbsp; ) O desmatamento pode provocar erosão do solo.
-  </div>
-  <div class="question">
-    <b>9.</b> ( &nbsp; ) A Amazônia é o único ambiente brasileiro que possui biodiversidade.
-  </div>
-  <div class="question">
-    <b>10.</b> ( &nbsp; ) A preservação das florestas também pode beneficiar os seres humanos.
-  </div>
-  <p><strong>Correção das afirmações falsas:</strong></p>
-  <div class="answer-lines tall"></div>
-  <div class="answer-lines tall"></div>
-
-  <h2>Parte 3 — Raciocínio e interpretação</h2>
-  <p class="small">Questões 11 a 15 — 5 pontos cada.</p>
-
-  <div class="question">
-    <b>11.</b> Uma região possuía 100 árvores. Uma empresa retirou 60 delas para construir uma área de estacionamento.
-    <p>a) Quantas árvores restaram?</p>
-    <p>b) A região perdeu 60% de suas árvores. Isso significa que perdeu exatamente 60% de todas as espécies que viviam ali? Explique.</p>
-    <div class="answer-lines tall"></div>
-  </div>
-
-  <div class="question">
-    <b>12.</b> Um rio atravessa uma floresta. Depois que as árvores próximas às margens foram retiradas, a água começou a ficar mais barrenta quando chove.
-    <p>Explique a relação entre a retirada das árvores e a mudança na aparência da água.</p>
-    <div class="answer-lines tall"></div>
-  </div>
-
-  <div class="question">
-    <b>13.</b> Em uma floresta vivem pássaros que se alimentam de frutos. Eles também espalham sementes pelo ambiente.
-    <p>Se esses pássaros desaparecerem, que duas consequências podem ocorrer para a floresta?</p>
-    <div class="answer-lines tall"></div>
-  </div>
-
-  <div class="question">
-    <b>14.</b> Duas áreas foram desmatadas.
-    <p>Na área A, o solo foi protegido e houve plantio de espécies nativas.</p>
-    <p>Na área B, o solo ficou exposto e começou a sofrer erosão.</p>
-    <p>Qual delas tem melhores condições de recuperação? Por quê?</p>
-    <div class="answer-lines tall"></div>
-  </div>
-
-  <div class="question">
-    <b>15.</b> Uma pessoa afirma: "Se plantarmos 100 árvores em uma cidade, podemos derrubar 100 árvores de uma floresta natural, pois uma compensa a outra".
-    <p>Você concorda? Explique por que essa comparação pode estar errada.</p>
-    <div class="answer-lines tall"></div>
-  </div>
-
-  <h2>Parte 4 — Situações-problema</h2>
-  <p class="small">Questões 16 a 19 — 5 pontos cada.</p>
-
-  <div class="question">
-    <b>16. O mistério dos animais.</b>
-    <p>Uma floresta foi dividida ao meio por uma estrada. Alguns animais não conseguem atravessar a estrada com segurança.</p>
-    <p>Como essa divisão pode prejudicar a sobrevivência desses animais? Sugira uma solução.</p>
-    <div class="answer-lines tall"></div>
-  </div>
-
-  <div class="question">
-    <b>17. A escolha da cidade.</b>
-    <p>Uma prefeitura precisa escolher entre destruir uma área de vegetação próxima a um rio para construir um estacionamento ou procurar outro terreno.</p>
-    <p>Quais fatores ambientais devem ser considerados antes de tomar essa decisão?</p>
-    <div class="answer-lines tall"></div>
-  </div>
-
-  <div class="question">
-    <b>18. O efeito dominó.</b>
-    <p>Imagine que uma grande quantidade de árvores seja retirada de uma floresta.</p>
-    <p>Construa uma sequência com pelo menos quatro acontecimentos que podem ocorrer como consequência dessa ação.</p>
-    <div class="answer-lines tall"></div>
-  </div>
-
-  <div class="question">
-    <b>19. O cientista ambiental.</b>
-    <p>Você recebeu a missão de recuperar uma área que foi desmatada há cinco anos.</p>
-    <p>Descreva um plano com pelo menos quatro ações para ajudar essa área a voltar a ter vida.</p>
-    <div class="answer-lines tall"></div>
-  </div>
-
-  <h2>Parte 5 — Pensamento crítico</h2>
-  <p class="small">Questão 20 — 10 pontos.</p>
-
-  <div class="question">
-    <b>20. O grande desafio.</b>
-    <p>Imagine que você seja o responsável por uma região onde vivem milhares de pessoas. Essa região possui florestas, rios, animais e também precisa produzir alimentos, construir moradias e gerar empregos.</p>
-    <p>Como você organizaria o desenvolvimento dessa região sem destruir desnecessariamente a natureza?</p>
-    <p>Escreva um texto de pelo menos 8 linhas. Sua resposta deve apresentar um problema, duas soluções e explicar por que suas escolhas são importantes.</p>
-    <div class="answer-lines tall"></div>
-    <div class="answer-lines tall"></div>
-    <div class="answer-lines tall"></div>
-    <div class="answer-lines tall"></div>
-  </div>
-
-  <div class="score">
-    <h2>Resultado</h2>
-    <p>Questões concluídas: ______ / 20</p>
-    <p>Pontuação: ______ / 100</p>
-    <p>O que aprendi melhor: ___________________________</p>
-    <p>O que preciso estudar novamente: __________________</p>
-  </div>
-</section>
-
-<!-- GLOSSÁRIO -->
-<section class="page" id="glossario">
-  <div class="chapter">Dicionário do cientista</div>
-  <h1>Glossário</h1>
-  <p>Consulte estas palavras sempre que precisar recordar seu significado.</p>
-  <dl class="glossary">
-    <dt>Biodiversidade</dt>
-    <dd>Variedade de seres vivos existentes em uma região ou no planeta.</dd>
-    <dt>Bioma</dt>
-    <dd>Grande região natural com características próprias de clima, vegetação e vida.</dd>
-    <dt>Carbono</dt>
-    <dd>Elemento químico que faz parte dos seres vivos e de muitas substâncias.</dd>
-    <dt>Ecossistema</dt>
-    <dd>Conjunto de seres vivos e elementos não vivos que interagem.</dd>
-    <dt>Efeito estufa</dt>
-    <dd>Fenômeno natural em que gases da atmosfera retêm parte do calor da Terra.</dd>
-    <dt>Erosão</dt>
-    <dd>Desgaste e transporte de partículas do solo ou de rochas.</dd>
-    <dt>Fotossíntese</dt>
-    <dd>Processo pelo qual as plantas utilizam luz para produzir açúcares.</dd>
-    <dt>Habitat</dt>
-    <dd>Ambiente onde um organismo vive.</dd>
-    <dt>Mata ciliar</dt>
-    <dd>Vegetação que cresce nas margens de rios e outros cursos de água.</dd>
-    <dt>Microrganismo</dt>
-    <dd>Organismo muito pequeno, geralmente observado com auxílio de microscópio.</dd>
-    <dt>Preservação</dt>
-    <dd>Proteção de ambientes naturais e de suas características.</dd>
-    <dt>Regeneração</dt>
-    <dd>Processo de recuperação e crescimento da vegetação.</dd>
-    <dt>Sustentabilidade</dt>
-    <dd>Uso responsável dos recursos, considerando as necessidades atuais e futuras.</dd>
-    <dt>Transpiração</dt>
-    <dd>Liberação de vapor de água pelas plantas, principalmente pelas folhas.</dd>
-  </dl>
-  <div class="box gold">
-    <strong>Última reflexão:</strong>
-    <p>Uma floresta não é importante apenas pelo que oferece aos seres humanos. Ela também é o lar de milhões de seres vivos que possuem seu próprio papel na natureza.</p>
-    <p>Proteger a natureza significa respeitar a vida em todas as suas formas.</p>
-  </div>
-  <h2>Parabéns, jovem cientista!</h2>
-  <p>Você concluiu uma jornada de investigação sobre o desmatamento. Continue fazendo perguntas, observando a natureza e procurando compreender o mundo ao seu redor.</p>
-</section>
-
-<!-- GABARITO -->
-<section class="page" id="answerKey">
-  <div class="chapter">Material exclusivo para correção</div>
-  <h1>Gabarito comentado</h1>
-  <div class="box gold">
-    <strong>Atenção aos responsáveis:</strong>
-    <p>Esta seção contém respostas esperadas. Nas questões abertas, aceite outras respostas quando o raciocínio estiver correto e bem explicado. O objetivo não é exigir palavras idênticas às do livro, mas avaliar a compreensão.</p>
-  </div>
-
-  <h2>Desafios dos capítulos</h2>
-
-  <h3>Capítulo 1</h3>
-  <ol>
-    <li>Porque contém seres vivos e elementos não vivos que interagem entre si.</li>
-    <li>Os restos de organismos poderiam se decompor mais lentamente, prejudicando a reciclagem de nutrientes no ambiente.</li>
-  </ol>
-
-  <h3>Capítulo 2</h3>
-  <ol>
-    <li>Fotossíntese produz açúcares utilizando energia luminosa; transpiração libera vapor de água pelas plantas.</li>
-    <li>Não. Árvores também protegem o solo, armazenam carbono, ajudam no ciclo da água e abrigam animais.</li>
-    <li>As raízes ajudam a manter a terra firme, reduzindo seu transporte pela água.</li>
-  </ol>
-
-  <h3>Capítulo 3</h3>
-  <ol>
-    <li>Sim. O desmatamento pode ocorrer pelo corte das árvores sem fogo.</li>
-    <li>Sim, houve incêndio. O ecossistema pode ter sido alterado, pois animais e plantas podem ter sido prejudicados.</li>
-  </ol>
-
-  <h3>Capítulo 4</h3>
-  <ol>
-    <li>A construção de infraestrutura, neste caso uma estrada.</li>
-    <li>Porque a estrada pode dividir habitats, dificultar deslocamentos e aumentar o risco de atropelamentos.</li>
-    <li>Não. É preciso considerar a necessidade, a localização, as leis ambientais e a possibilidade de produzir alimentos em áreas já abertas.</li>
-  </ol>
-
-  <h3>Capítulo 5</h3>
-  <ol>
-    <li>Porque o animal pode depender da árvore como abrigo, local de reprodução ou parte de sua cadeia alimentar.</li>
-    <li>Pode haver erosão, transporte de sedimentos e piora da qualidade da água.</li>
-    <li>Porque as florestas participam do ciclo da água, armazenam carbono e influenciam condições ambientais que ultrapassam seus limites.</li>
-  </ol>
-
-  <h3>Capítulo 6</h3>
-  <ol>
-    <li>Porque a retirada e queima de árvores podem liberar carbono, e a área perde parte de sua capacidade futura de armazená-lo.</li>
-    <li>Tempo é a condição atmosférica em determinado momento; clima é o padrão observado durante muitos anos.</li>
-    <li>A floresta pode oferecer sombra, umidade e transpiração, alterando as condições locais.</li>
-  </ol>
-
-  <h3>Capítulo 7</h3>
-  <ol>
-    <li>É uma grande região natural. A Amazônia possui clima, vegetação e biodiversidade característicos.</li>
-    <li>Porque outros biomas possuem espécies e ecossistemas diferentes, que também precisam de proteção.</li>
-    <li>Porque ainda possui grande biodiversidade, além de fornecer benefícios ambientais e abrigar espécies ameaçadas.</li>
-  </ol>
-
-  <h3>Capítulo 8</h3>
-  <ol>
-    <li>Porque uma floresta natural possui diversidade de espécies e relações ecológicas que não são recuperadas apenas com o plantio de algumas árvores.</li>
-    <li>Exemplos: economizar água, reduzir desperdício, separar resíduos, evitar produtos de origem ilegal e participar de ações ambientais.</li>
-    <li>Proteger as margens, recuperar a vegetação nativa, impedir o descarte de lixo e evitar construções que prejudiquem o rio.</li>
-  </ol>
-
-  <h2>Prova final</h2>
-
-  <ol>
-    <li>Porque possui seres vivos e elementos não vivos que interagem. Não é apenas um conjunto de árvores.</li>
-    <li>As raízes ajudam a segurar o solo, reduzindo erosão e transporte de terra para os rios.</li>
-    <li>Porque os seres vivos dependem uns dos outros para alimentação, abrigo, polinização, dispersão de sementes e outras relações.</li>
-    <li>Desmatamento é retirada da vegetação natural. Queimada é uso ou ocorrência de fogo. Exemplos: derrubar árvores para plantar e incendiar uma área de vegetação.</li>
-    <li>Porque as florestas influenciam o ciclo da água, o clima, a biodiversidade e outros processos que afetam regiões distantes.</li>
-    <li>V.</li>
-    <li>F. A recuperação de uma floresta pode levar muitos anos ou até ser muito difícil.</li>
-    <li>V.</li>
-    <li>F. O Brasil possui vários biomas com biodiversidade própria.</li>
-    <li>V.</li>
-    <li>a) 40 árvores. b) Não. A quantidade de árvores não indica diretamente a quantidade de espécies. Muitas espécies podem depender de diferentes partes da floresta.</li>
-    <li>A retirada da vegetação deixa o solo exposto. A chuva carrega partículas de terra para o rio, deixando a água mais barrenta.</li>
-    <li>Pode haver redução da dispersão de sementes e dificuldade de regeneração de plantas. Também podem ser afetados animais que dependem dos frutos.</li>
-    <li>A área A, pois recebeu proteção e plantio de espécies nativas. A área B está sofrendo erosão, dificultando sua recuperação.</li>
-    <li>Não. Uma floresta natural possui biodiversidade, estrutura, solo e relações ecológicas que não são substituídos automaticamente por árvores plantadas em outro local.</li>
-    <li>A estrada pode separar populações, impedir deslocamentos e aumentar atropelamentos. Uma solução possível é construir passagens de fauna e corredores ecológicos.</li>
-    <li>Devem ser considerados a proteção do rio, a vegetação, a erosão, os animais, a qualidade da água e a possibilidade de escolher outro terreno.</li>
-    <li>Exemplo: retirada de árvores → perda de habitats → redução de animais → desequilíbrio ecológico. Outra sequência possível envolve solo exposto, erosão e assoreamento dos rios.</li>
-    <li>Um plano pode incluir avaliação do solo, proteção da área, controle de erosão, plantio de espécies nativas, proteção das nascentes e acompanhamento da recuperação.</li>
-    <li>Resposta individual. Avaliar se apresenta um problema, pelo menos duas soluções coerentes e justificativas que considerem tanto as necessidades humanas quanto a proteção ambiental.</li>
-  </ol>
-
-  <h2>Sugestão de avaliação</h2>
-  <table>
-    <tr><th>Pontuação</th><th>Interpretação</th></tr>
-    <tr><td>90 a 100</td><td>Excelente compreensão e capacidade de raciocínio.</td></tr>
-    <tr><td>75 a 89</td><td>Muito bom domínio do conteúdo.</td></tr>
-    <tr><td>60 a 74</td><td>Boa compreensão, com alguns pontos para revisar.</td></tr>
-    <tr><td>Abaixo de 60</td><td>Vale revisar os capítulos e refazer as questões.</td></tr>
-  </table>
-  <p class="small">A nota é uma referência para acompanhar a aprendizagem, não uma medida da inteligência da criança. Valorize especialmente a qualidade das explicações.</p>
-
-  <div class="divider"></div>
-  <h2>Certificado de jovem cientista</h2>
-  <p>Certificamos que</p>
-  <h2 style="text-align:center">________________________________</h2>
-  <p>concluiu o livro de estudos sobre desmatamento e demonstrou interesse em compreender e proteger a natureza.</p>
-  <br>
-  <p>Data: ______________________________</p>
-  <p>Assinatura: __________________________</p>
-</section>
-
-</div>
-
-<script>
-function toggleAnswers(){
-  const key=document.getElementById('answerKey');
-  key.classList.toggle('visible');
-  const button=document.querySelectorAll('.toolbar button')[1];
-  button.textContent=key.classList.contains('visible')
-    ? 'Esconder gabarito'
-    : 'Mostrar gabarito (adulto)';
-}
-
-// Evita que o gabarito seja impresso junto com o livro,
-// a menos que o adulto escolha explicitamente imprimi-lo.
-</script>
+    <div class="no-print">
+        <button class="btn-print" onclick="window.print()">Salvar como PDF / Imprimir Orçamento</button>
+    </div>
+
+    <div class="page">
+        <div>
+            <!-- Cabeçalho -->
+            <header>
+                <div class="company-info">
+                    <!-- Substitua a div abaixo por <img src="sua-logo.png" alt="Logo" style="height: 64px;"> -->
+                    <div class="logo-placeholder">⚡</div>
+                    <div class="company-details">
+                        <h1>ELETROTECH SERVIÇOS ELÉTRICOS</h1>
+                        <p>CNPJ: 12.345.678/0001-90 | CREA-RS 123456</p>
+                        <p>Rua Exemplo, 1000 - Porto Alegre/RS</p>
+                        <p>Contato: (51) 99999-9999 | contato@eletrotech.com.br</p>
+                    </div>
+                </div>
+                <div class="quote-meta">
+                    <h2>Orçamento</h2>
+                    <p><strong>Nº:</strong> 2026-042</p>
+                    <p><strong>Data:</strong> 26/11/2026</p>
+                    <p><strong>Validade:</strong> 15 dias</p>
+                </div>
+            </header>
+
+            <!-- Dados do Cliente -->
+            <section class="client-box">
+                <h3>Dados do Cliente</h3>
+                <div><strong>Cliente:</strong> Carlos Eduardo Mendes</div>
+                <div><strong>CPF/CNPJ:</strong> 123.456.789-00</div>
+                <div><strong>Endereço:</strong> Av. Protásio Alves, 2500, Apto 402</div>
+                <div><strong>Telefone:</strong> (51) 98888-7777</div>
+            </section>
+
+            <!-- Tabela de Mão de Obra / Serviços -->
+            <h3 class="section-title">1. Descrição dos Serviços (Mão de Obra)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item / Descrição do Serviço</th>
+                        <th class="center">Unid.</th>
+                        <th class="center">Qtd.</th>
+                        <th class="num">Valor Unit.</th>
+                        <th class="num">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Montagem e instalação de Quadro de Distribuição (QDC) bifásico 18 disjuntores com barramento</td>
+                        <td class="center">Serv.</td>
+                        <td class="center">1</td>
+                        <td class="num">R$ 650,00</td>
+                        <td class="num">R$ 650,00</td>
+                    </tr>
+                    <tr>
+                        <td>Passagem de cabeamento e instalação de pontos de tomada 20A (uso específico - cozinha)</td>
+                        <td class="center">Ponto</td>
+                        <td class="center">4</td>
+                        <td class="num">R$ 120,00</td>
+                        <td class="num">R$ 480,00</td>
+                    </tr>
+                    <tr>
+                        <td>Instalação de circuito exclusivo 220V para ar-condicionado Split 18.000 BTUs</td>
+                        <td class="center">Circ.</td>
+                        <td class="center">2</td>
+                        <td class="num">R$ 280,00</td>
+                        <td class="num">R$ 560,00</td>
+                    </tr>
+                    <tr>
+                        <td>Instalação de luminárias LED de embutir e interruptores paralelos (Three-way)</td>
+                        <td class="center">Ponto</td>
+                        <td class="center">6</td>
+                        <td class="num">R$ 75,00</td>
+                        <td class="num">R$ 450,00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Tabela de Materiais -->
+            <h3 class="section-title">2. Materiais Elétricos Fornecidos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descrição do Material</th>
+                        <th class="center">Unid.</th>
+                        <th class="center">Qtd.</th>
+                        <th class="num">Valor Unit.</th>
+                        <th class="num">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cabo Flexível 2,5mm² 750V (Rolo 100m - Antichama)</td>
+                        <td class="center">Rolo</td>
+                        <td class="center">2</td>
+                        <td class="num">R$ 210,00</td>
+                        <td class="num">R$ 420,00</td>
+                    </tr>
+                    <tr>
+                        <td>Cabo Flexível 4,0mm² 750V (Metro - Circuitos Ar-Condicionado)</td>
+                        <td class="center">Metro</td>
+                        <td class="center">45</td>
+                        <td class="num">R$ 3,80</td>
+                        <td class="num">R$ 171,00</td>
+                    </tr>
+                    <tr>
+                        <td>Disjuntor DIN Monopolar 20A Curva C</td>
+                        <td class="center">Unid.</td>
+                        <td class="center">6</td>
+                        <td class="num">R$ 18,50</td>
+                        <td class="num">R$ 111,00</td>
+                    </tr>
+                    <tr>
+                        <td>Interruptor Diferencial Residual (IDR) Bipolar 40A 30mA</td>
+                        <td class="center">Unid.</td>
+                        <td class="center">1</td>
+                        <td class="num">R$ 145,00</td>
+                        <td class="num">R$ 145,00</td>
+                    </tr>
+                    <tr>
+                        <td>Dispositivo de Proteção contra Surtos (DPS) Classe II 275V 20kA</td>
+                        <td class="center">Unid.</td>
+                        <td class="center">2</td>
+                        <td class="num">R$ 55,00</td>
+                        <td class="num">R$ 110,00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Resumo de Valores -->
+            <div class="totals-wrapper">
+                <div class="totals-box">
+                    <div class="total-row">
+                        <span>Total Mão de Obra:</span>
+                        <span>R$ 2.140,00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Total Materiais:</span>
+                        <span>R$ 957,00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Desconto (À Vista):</span>
+                        <span>- R$ 97,00</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>VALOR TOTAL:</span>
+                        <span>R$ 3.000,00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rodapé, Condições e Assinaturas -->
+        <div>
+            <div class="terms">
+                <h4>Condições Gerais e Garantia</h4>
+                <ul>
+                    <li><strong>Forma de Pagamento:</strong> 50% na aprovação (compra de materiais) e 50% na entrega dos serviços via PIX ou transferência.</li>
+                    <li><strong>Prazo de Execução:</strong> 3 dias úteis após o início das atividades.</li>
+                    <li><strong>Garantia:</strong> 12 meses para os serviços executados, conforme normas técnicas NBR 5410.</li>
+                </ul>
+            </div>
+
+            <div class="signatures">
+                <div class="sig-line">
+                    <strong>Eletrotech Serviços Elétricos</strong><br>
+                    Responsável Técnico
+                </div>
+                <div class="sig-line">
+                    <strong>Carlos Eduardo Mendes</strong><br>
+                    De acordo do Cliente
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
